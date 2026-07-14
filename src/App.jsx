@@ -160,7 +160,7 @@ useEffect(() => {
           </div>
         </div>
         <p className="text-[#6B6862] max-w-2xl leading-relaxed text-sm mb-10">
-          <b></b> focused on AWS infrastructure, automation, and building
+          <b>Cloud Engineer </b> focused on AWS infrastructure, automation, and building
           reliable, reproducible systems. Learning in public, one pipeline at a time.
         </p>
 
