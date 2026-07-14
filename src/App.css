@@ -182,3 +182,25 @@
     border-right-color: var(--border);
   }
 }
+
+.react-activity-calendar {
+  width: 100%;
+}
+
+.react-activity-calendar svg {
+  width: 100%;
+  height: auto;
+}
+
+.react-activity-calendar text {
+  fill: #6b6862 !important;
+  font-family: inherit;
+}
+
+.react-activity-calendar rect {
+  rx: 3;
+}
+
+.react-activity-calendar svg {
+  background: transparent !important;
+}

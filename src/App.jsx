@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Mail, Copy, Check, Terminal, Cloud, Server, GitBranch, Container, Activity, ExternalLink, Award, BookOpen } from "lucide-react";
+import { GitHubCalendar } from "react-github-calendar";
 
 // Lucide removed brand icons (GitHub, LinkedIn, Twitter, etc.) in v1.0 — using inline SVGs instead
 const GithubIcon = ({ className }) => (
@@ -24,6 +25,24 @@ export default function Portfolio() {
   const [typedText, setTypedText] = useState("");
 
   const fullCommand = "$ aws sts get-caller-identity --query 'Arn'";
+
+  const terminalLines = [
+  "$ whoami",
+  "Nikhil Challa",
+  "",
+  "$ aws sts get-caller-identity",
+  "✔ IAM Identity Verified",
+  "",
+  "$ kubectl get pods",
+  "frontend      Running",
+  "backend       Running",
+  "postgres      Running",
+  "",
+  '$ echo "Thanks for visiting."',
+  "Thanks for visiting 👋",
+];
+
+const [footerLines, setFooterLines] = useState([]);
 
   const email = "nikhilchalla511@gmail.com";
   const linkedin = "https://linkedin.com/in/nikhil-challa";
@@ -51,6 +70,25 @@ export default function Portfolio() {
     { title: "Serverless URL Shortener", description: "Built a fully serverless app using Lambda, API Gateway, and DynamoDB, deployed via the Serverless Framework.", stack: ["Lambda", "API Gateway", "DynamoDB"], github: "https://github.com/Nikhilchalla" },
     { title: "Monitoring & Alerting Stack", description: "Set up centralized monitoring using CloudWatch metrics and Grafana dashboards with Slack alerting on threshold breaches.", stack: ["CloudWatch", "Grafana", "Prometheus"], github: "https://github.com/Nikhilchalla" },
   ];
+
+useEffect(() => {
+  let index = 0;
+
+  const interval = setInterval(() => {
+    setFooterLines(terminalLines.slice(0, index + 1));
+
+    index++;
+
+    if (index > terminalLines.length) {
+      setTimeout(() => {
+        setFooterLines([]);
+        index = 0;
+      }, 4000);
+    }
+  }, 700);
+
+  return () => clearInterval(interval);
+}, []);
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -122,7 +160,7 @@ export default function Portfolio() {
           </div>
         </div>
         <p className="text-[#6B6862] max-w-2xl leading-relaxed text-sm mb-10">
-          // Cloud Engineer focused on AWS infrastructure, automation, and building
+          <b></b> focused on AWS infrastructure, automation, and building
           reliable, reproducible systems. Learning in public, one pipeline at a time.
         </p>
 
@@ -139,25 +177,40 @@ export default function Portfolio() {
           </a>
         </div>
 
-        {/* GitHub Activity — live data */}
-        <section className="mb-12">
-          <h2 className="text-[#1A1917] text-lg mb-4 flex items-center gap-2">
-            <GithubIcon className="w-4 h-4" /> // GitHub Activity
-          </h2>
-          <div className="border border-[#2B2A28 ]/15 rounded-md p-3 bg-white/40 space-y-6">
-            <img
-              src={`https://ghchart.rshah.org/2DA44E/${githubUsername}`}
-              alt="GitHub contribution graph"
-              className="w-full rounded-md bg-white"
-              loading="lazy"
-            />
-          </div>
-        </section>
+        {/* GitHub Activity */}
+          <section className="mb-12">
+            <h2 className="text-[#1A1917] text-lg mb-4 flex items-center gap-2">
+              <GithubIcon className="w-4 h-4" />GitHub Activity
+            </h2>
+
+            <div className="border border-[#2B2A28]/15 rounded-md p-5 bg-white/40 overflow-x-auto">
+
+              <GitHubCalendar
+                username={githubUsername}
+                colorScheme="light"
+                blockSize={14}
+                blockMargin={4}
+                fontSize={13}
+                hideColorLegend={false}
+                hideMonthLabels={false}
+                theme={{
+                  light: [
+                    "#ebe8e2", // empty squares (matches your beige theme)
+                    "#c8efcf",
+                    "#89df97",
+                    "#4fc96a",
+                    "#216e39",
+                  ],
+                }}
+              />
+
+            </div>
+          </section>
 
         {/* Skills */}
         <section className="mb-12">
           <h2 className="text-[#1A1917] text-lg mb-4 flex items-center gap-2">
-            <Server className="w-4 h-4" /> // Skills
+            <Server className="w-4 h-4" />Skills
           </h2>
           <div className="grid md:grid-cols-2 gap-4">
             {Object.entries(skills).map(([category, items]) => (
@@ -178,7 +231,7 @@ export default function Portfolio() {
         {/* Certifications */}
         <section className="mb-12">
           <h2 className="text-[#1A1917] text-lg mb-4 flex items-center gap-2">
-            <Award className="w-4 h-4" /> // Certifications
+            <Award className="w-4 h-4" />Certifications
           </h2>
           <div className="space-y-3">
             {certifications.map((cert) => (
@@ -201,7 +254,7 @@ export default function Portfolio() {
         {/* Projects */}
         <section className="mb-12">
           <h2 className="text-[#1A1917] text-lg mb-4 flex items-center gap-2">
-            <Container className="w-4 h-4" /> // Projects
+            <Container className="w-4 h-4" />Projects
           </h2>
           <div className="space-y-4">
             {projects.map((p) => (
@@ -228,7 +281,7 @@ export default function Portfolio() {
         {/* Learning Journey */}
         <section className="mb-12">
           <h2 className="text-[#1A1917] text-lg mb-4 flex items-center gap-2">
-            <BookOpen className="w-4 h-4" /> // Currently Learning
+            <BookOpen className="w-4 h-4" />Currently Learning
           </h2>
           <div className="border border-[#2B2A28]/15 rounded-md p-4 text-[#5A574F] text-sm leading-relaxed bg-white/40">
             Building toward the AWS Solutions Architect Associate certification while deepening
@@ -237,9 +290,34 @@ export default function Portfolio() {
           </div>
         </section>
 
-        <footer className="text-center text-[#8A877F] text-xs mt-16 pb-6">
+        {/* <footer className="text-center text-[#8A877F] text-xs mt-16 pb-6">
           <Cloud className="w-4 h-4 inline mr-1" /> deployed on the cloud, built from the terminal
+        </footer> */}
+
+        <footer className="mt-20 border border-[#2B2A28]/15 rounded-md overflow-hidden bg-white/40">
+          <div className="bg-[#2B2A28]/[0.04] px-4 py-2 border-b border-[#2B2A28]/10 text-xs text-[#6B6862]">
+            terminal
+          </div>
+          <div className="p-5 font-mono text-sm leading-7 min-h-[260px]">
+
+            {footerLines.map((line, i) => (
+              <p
+                key={i}
+                className={
+                  line.startsWith("✔")
+                    ? "text-[#3F6B4F]"
+                    : line.startsWith("$")
+                    ? "text-[#B5622C]"
+                    : "text-[#2B2A28]"
+                }
+              >
+                {line}
+              </p>
+            ))}
+            <span className="animate-pulse">▊</span>
+          </div>
         </footer>
+        
       </div>
     </div>
   );
