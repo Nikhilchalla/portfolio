@@ -47,6 +47,7 @@ const [footerLines, setFooterLines] = useState([]);
   const email = "nikhilchalla511@gmail.com";
   const linkedin = "https://linkedin.com/in/nikhil-challa";
   const github = `https://github.com/${githubUsername}`;
+  const resume = "https://drive.google.com/file/d/17Ph35yH7Wb8RlmHSJyuFsi_bqFE3u6Za/view?usp=drive_link";
 
   const skills = {
     "Cloud Platforms": ["AWS (EC2, S3, VPC, IAM, Lambda, RDS)", "CloudFront", "Route53", "CloudWatch"],
@@ -58,9 +59,9 @@ const [footerLines, setFooterLines] = useState([]);
   };
 
   const certifications = [
-    { name: "AWS Certified Cloud Practitioner", status: "Completed", year: "2026", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
+    { name: "AWS Certified Cloud Practitioner (CLF-C02)", status: "Completed", year: "2026", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
     { name: "AWS Certified Solutions Architect – Associate", status: "In Progress", year: "2026", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
-    { name: "Certified Kubernetes Administrator (CKA)", status: "In Progress", year: "2026", logo: "https://cdn.simpleicons.org/kubernetes" },
+    { name: "Microsoft Azure AI Fundamentals (AI 900)", status: "Completed", year: "2025", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" },
   ];
 
   const projects = [
@@ -173,7 +174,10 @@ useEffect(() => {
             <LinkedinIcon className="w-4 h-4" /> LinkedIn
           </a>
           <a href={`mailto:${email}`} title="Email me" className="flex items-center gap-2 border border-[#2B2A28]/20 px-3 py-2 rounded hover:bg-[#2B2A28]/[0.04] transition-colors text-sm">
-            <Mail className="w-4 h-4" />Send an Email
+            <Mail className="w-4 h-4" /> Email me
+          </a>
+          <a href={resume} target="_blank" rel="noreferrer" className="flex items-center gap-2 border border-[#2B2A28]/20 px-3 py-2 rounded hover:bg-[#2B2A28]/[0.04] transition-colors text-sm">
+            <LinkedinIcon className="w-4 h-4" /> Resume
           </a>
         </div>
 
@@ -210,7 +214,7 @@ useEffect(() => {
         {/* Skills */}
         <section className="mb-12">
           <h2 className="text-[#1A1917] text-lg mb-4 flex items-center gap-2">
-            <Server className="w-4 h-4" />Skills
+            <Server className="w-4 h-4" />My Skills
           </h2>
           <div className="grid md:grid-cols-2 gap-4">
             {Object.entries(skills).map(([category, items]) => (
@@ -296,7 +300,7 @@ useEffect(() => {
 
         <footer className="mt-20 border border-[#2B2A28]/15 rounded-md overflow-hidden bg-white/40">
           <div className="bg-[#2B2A28]/[0.04] px-4 py-2 border-b border-[#2B2A28]/10 text-xs text-[#6B6862]">
-            terminal
+            terminal.sh  
           </div>
           <div className="p-5 font-mono text-sm leading-7 min-h-[260px]">
 
