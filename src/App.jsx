@@ -186,17 +186,6 @@ export default function Portfolio() {
 
     return () => clearInterval(interval);
   }, []);
-
-  /*
-   * Live portfolio analytics
-   *
-   * Every page load sends a POST request to:
-   *
-   * /api/analytics
-   *
-   * The Vercel Function updates Upstash Redis
-   * and returns the current visitor/page-view totals.
-   */
   useEffect(() => {
     fetch("/api/analytics", {
       method: "POST",
@@ -284,11 +273,10 @@ export default function Portfolio() {
           </span>
 
           <span
-            className={`flex items-center gap-1 ${
-              buildStatus === "passing"
+            className={`flex items-center gap-1 ${buildStatus === "passing"
                 ? "text-[#3F6B4F]"
                 : "text-[#B5822C]"
-            }`}
+              }`}
           >
             <GitBranch className="w-3 h-3" />
             build: {buildStatus}
@@ -429,8 +417,7 @@ export default function Portfolio() {
               ([category, items]) => (
                 <div
                   key={category}
-                  className="border border-[#2B2A28]/15 rounded-md p-4 bg-white/40"
-                >
+                  className="border border-[#2B2A28]/15 rounded-md p-4 bg-white/40">
                   <h3 className="text-[#1A1917] text-sm font-semibold mb-2">
                     {category}
                   </h3>
@@ -439,8 +426,7 @@ export default function Portfolio() {
                     {items.map((item) => (
                       <span
                         key={item}
-                        className="text-xs bg-[#2B2A28]/[0.05] border border-[#2B2A28]/15 px-2 py-1 rounded text-[#4A4844]"
-                      >
+                        className="text-xs bg-[#2B2A28]/[0.05] border border-[#2B2A28]/15 px-2 py-1 rounded text-[#4A4844]">
                         {item}
                       </span>
                     ))}
@@ -462,15 +448,13 @@ export default function Portfolio() {
             {certifications.map((cert) => (
               <div
                 key={cert.name}
-                className="border border-[#2B2A28]/15 rounded-md p-4 flex items-center justify-between flex-wrap gap-2 bg-white/40"
-              >
+                className="border border-[#2B2A28]/15 rounded-md p-4 flex items-center justify-between flex-wrap gap-2 bg-white/40">
                 <div className="flex items-center gap-3">
                   <img
                     src={cert.logo}
                     alt=""
                     className="w-5 h-5"
-                    loading="lazy"
-                  />
+                    loading="lazy"/>
 
                   <div>
                     <p className="text-[#1A1917] text-sm">
@@ -484,12 +468,10 @@ export default function Portfolio() {
                 </div>
 
                 <span
-                  className={`text-xs px-2.5 py-1.5 rounded border ${
-                    cert.status === "Completed"
+                  className={`text-xs px-2.5 py-1.5 rounded border ${cert.status === "Completed"
                       ? "bg-[#2F6F4E]/40 border-[#3F6B4F]/40 text-[#3F6B4F]"
                       : "bg-[#B5822C]/10 border-[#B5822C]/40 text-[#B5822C]"
-                  }`}
-                >
+                    }`}>
                   {cert.status}
                 </span>
               </div>
@@ -629,8 +611,8 @@ export default function Portfolio() {
                   line.startsWith("✔")
                     ? "text-[#3F6B4F]"
                     : line.startsWith("$")
-                    ? "text-[#B5622C]"
-                    : "text-[#2B2A28]"
+                      ? "text-[#B5622C]"
+                      : "text-[#2B2A28]"
                 }>
                 {line}
               </p>

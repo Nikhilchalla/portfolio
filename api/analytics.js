@@ -28,10 +28,7 @@ function getCookie(req, name) {
 
 export default async function handler(req, res) {
   try {
-    /*
-     * GET
-     * Returns current analytics without incrementing anything.
-     */
+
     if (req.method === "GET") {
       const pageViews = await redis.get("portfolio:pageviews");
       const visitors = await redis.get("portfolio:visitors");
@@ -41,19 +38,9 @@ export default async function handler(req, res) {
         visitors: Number(visitors || 0),
       });
     }
-
-    /*
-     * POST
-     * Records a page view and identifies a unique visitor.
-     */
     if (req.method === "POST") {
       let visitorId = getCookie(req, VISITOR_COOKIE);
       let isNewVisitor = false;
-
-      /*
-       * Create anonymous visitor ID if this browser
-       * has never visited before.
-       */
       if (!visitorId) {
         visitorId = randomUUID();
         isNewVisitor = true;
@@ -65,21 +52,7 @@ export default async function handler(req, res) {
           )}; Path=/; Max-Age=${COOKIE_MAX_AGE}; HttpOnly; Secure; SameSite=Lax`
         );
       }
-
-      /*
-       * Every POST represents one page view.
-       */
       const pageViews = await redis.incr("portfolio:pageviews");
-
-      /*
-       * Use Redis SET NX so a visitor is counted only once.
-       *
-       * If the visitor ID already exists:
-       * SET NX returns null.
-       *
-       * If it is new:
-       * SET NX creates the key.
-       */
       if (isNewVisitor) {
         const visitorKey = `portfolio:visitor:${visitorId}`;
 
