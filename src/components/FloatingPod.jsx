@@ -1,0 +1,509 @@
+import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { Box, X } from "lucide-react";
+
+const particles = [
+  { x: -55, y: -55, rotate: -80 },
+  { x: 0, y: -70, rotate: 20 },
+  { x: 55, y: -50, rotate: 70 },
+  { x: -70, y: 0, rotate: -120 },
+  { x: 70, y: 5, rotate: 130 },
+  { x: -45, y: 55, rotate: -160 },
+  { x: 5, y: 70, rotate: 180 },
+  { x: 50, y: 55, rotate: 220 },
+];
+
+export default function FloatingPod() {
+  const [exploded, setExploded] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
+
+  const blastPod = () => {
+    if (exploded) return;
+
+    setExploded(true);
+
+    setTimeout(() => {
+      setShowMessage(true);
+    }, 350);
+
+    setTimeout(() => {
+      setExploded(false);
+    }, 3500);
+  };
+
+  return (
+    <>
+      {/* Floating Pod */}
+
+      <motion.div
+        drag
+        dragMomentum
+        dragElastic={0.8}
+        initial={{
+          x: 80,
+          y: 80,
+        }}
+        animate={
+          exploded
+            ? {}
+            : {
+                x: [70, 280, 520, 300, 100],
+                y: [80, 40, 180, 260, 80],
+                rotate: [0, 10, -8, 7, 0],
+              }
+        }
+        transition={{
+          duration: 24,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="
+          fixed
+          top-0
+          left-0
+          z-[80]
+
+          hidden
+          sm:block
+
+          cursor-grab
+          active:cursor-grabbing
+        "
+        style={{
+          touchAction: "none",
+        }}
+      >
+        <div className="relative">
+
+          {/* Pod */}
+
+          <AnimatePresence>
+
+            {!exploded && (
+              <motion.button
+                type="button"
+                onClick={blastPod}
+                initial={{
+                  opacity: 0,
+                  scale: 0.7,
+                }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                }}
+                exit={{
+                  opacity: 0,
+                  scale: 1.8,
+                  rotate: 180,
+                }}
+                whileHover={{
+                  scale: 1.15,
+                  rotate: 8,
+                }}
+                whileTap={{
+                  scale: 0.8,
+                }}
+                transition={{
+                  duration: 0.25,
+                }}
+                className="
+                  group
+                  relative
+
+                  w-11
+                  h-11
+
+                  rounded-lg
+
+                  border
+                  border-[#343434]
+
+                  bg-[#151515]/90
+
+                  backdrop-blur-md
+
+                  flex
+                  items-center
+                  justify-center
+
+                  text-[#C66A3A]
+
+                  shadow-lg
+                  shadow-black/30
+
+                  hover:border-[#C66A3A]/60
+
+                  transition-colors
+                "
+                aria-label="Floating Kubernetes pod"
+              >
+                <Box className="w-5 h-5" />
+
+                {/* status dot */}
+
+                <span
+                  className="
+                    absolute
+                    top-1
+                    right-1
+
+                    w-1.5
+                    h-1.5
+
+                    rounded-full
+
+                    bg-[#70977C]
+                  "
+                />
+
+                {/* tiny hover label */}
+
+                <span
+                  className="
+                    absolute
+                    -bottom-6
+                    left-1/2
+                    -translate-x-1/2
+
+                    whitespace-nowrap
+
+                    text-[9px]
+                    text-[#77756F]
+
+                    opacity-0
+                    group-hover:opacity-100
+
+                    transition-opacity
+
+                    pointer-events-none
+                  "
+                >
+                  pod-01
+                </span>
+              </motion.button>
+            )}
+
+          </AnimatePresence>
+
+          {/* Explosion */}
+
+          {exploded && (
+            <div className="absolute left-1/2 top-1/2">
+
+              {/* Core */}
+
+              <motion.div
+                initial={{
+                  scale: 0,
+                  opacity: 1,
+                }}
+                animate={{
+                  scale: [0, 1.8, 0],
+                  opacity: [1, 1, 0],
+                }}
+                transition={{
+                  duration: 0.7,
+                }}
+                className="
+                  absolute
+                  -translate-x-1/2
+                  -translate-y-1/2
+
+                  w-12
+                  h-12
+
+                  rounded-full
+
+                  bg-[#C66A3A]/40
+
+                  blur-md
+                "
+              />
+
+              {/* Particles */}
+
+              {particles.map((particle, index) => (
+                <motion.span
+                  key={index}
+                  initial={{
+                    x: 0,
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                  }}
+                  animate={{
+                    x: particle.x,
+                    y: particle.y,
+                    rotate: particle.rotate,
+                    opacity: 0,
+                    scale: 0,
+                  }}
+                  transition={{
+                    duration: 0.8,
+                    ease: "easeOut",
+                  }}
+                  className="
+                    absolute
+
+                    w-2
+                    h-2
+
+                    rounded-sm
+
+                    bg-[#C66A3A]
+                  "
+                />
+              ))}
+
+              {/* lava dots */}
+
+              {[...Array(6)].map((_, index) => (
+                <motion.span
+                  key={`lava-${index}`}
+                  initial={{
+                    x: 0,
+                    y: 0,
+                    opacity: 1,
+                  }}
+                  animate={{
+                    x: Math.cos(index) * 45,
+                    y: Math.sin(index) * 45,
+                    opacity: 0,
+                  }}
+                  transition={{
+                    duration: 0.65,
+                    delay: index * 0.04,
+                  }}
+                  className="
+                    absolute
+
+                    w-1.5
+                    h-1.5
+
+                    rounded-full
+
+                    bg-[#E07A47]
+                  "
+                />
+              ))}
+
+            </div>
+          )}
+
+        </div>
+      </motion.div>
+      
+      {/* Hanging Easter Egg Message */}
+
+            <AnimatePresence>
+            {showMessage && (
+                <motion.div
+                initial={{
+                    opacity: 0,
+                    y: -30,
+                    scale: 0.94,
+                }}
+                animate={{
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                }}
+                exit={{
+                    opacity: 0,
+                    y: -20,
+                    scale: 0.96,
+                }}
+                transition={{
+                    duration: 0.35,
+                    ease: "easeOut",
+                }}
+                className="
+                    fixed
+                    inset-0
+                    z-[90]
+
+                    flex
+                    items-center
+                    justify-center
+
+                    pointer-events-none
+
+                    px-4
+                "
+                >
+                <motion.div
+                    animate={{
+                    y: [0, -6, 0],
+                    rotate: [0, 0.5, -0.5, 0],
+                    }}
+                    transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    }}
+                    className="
+                    pointer-events-auto
+
+                    relative
+
+                    w-full
+                    max-w-md
+
+                    border
+                    border-[#343434]
+
+                    bg-[#111111]/95
+
+                    backdrop-blur-xl
+
+                    rounded-md
+
+                    overflow-hidden
+
+                    shadow-2xl
+                    shadow-black/50
+                    "
+                >
+                    {/* hanging line */}
+
+                    <div
+                    className="
+                        absolute
+                        left-1/2
+                        -top-16
+                        -translate-x-1/2
+
+                        w-px
+                        h-16
+
+                        bg-[#343434]
+                    "
+                    />
+
+                    {/* hook */}
+
+                    <div
+                    className="
+                        absolute
+                        left-1/2
+                        -top-1
+                        -translate-x-1/2
+
+                        w-2
+                        h-2
+
+                        rounded-full
+
+                        bg-[#C66A3A]
+                    "
+                    />
+
+                    {/* Terminal header */}
+
+                    <div
+                    className="
+                        flex
+                        items-center
+                        justify-between
+
+                        px-3
+                        py-2
+
+                        border-b
+                        border-[#2A2A2A]
+
+                        bg-[#151515]
+                    "
+                    >
+                    <span className="text-[10px] text-[#77756F]">
+                        pod/chaos-engineering.log
+                    </span>
+
+                    <button
+                        type="button"
+                        onClick={() => setShowMessage(false)}
+                        className="
+                        text-[#77756F]
+                        hover:text-[#F0EFEA]
+                        transition-colors
+                        "
+                        aria-label="Close easter egg"
+                    >
+                        <X className="w-4 h-4" />
+                    </button>
+                    </div>
+
+                    {/* Message */}
+
+                    <div className="p-5">
+
+                    <p
+                        className="
+                        text-[10px]
+                        uppercase
+                        tracking-widest
+                        text-[#C66A3A]
+                        mb-3
+                        "
+                    >
+                        pod terminated
+                    </p>
+
+                    <div
+                        className="
+                        space-y-1
+                        text-xs
+                        text-[#77756F]
+                        mb-4
+                        "
+                    >
+                        <p>
+                        <span className="text-[#A4A29B]">
+                            status:
+                        </span>{" "}
+                        Failed
+                        </p>
+
+                        <p>
+                        <span className="text-[#A4A29B]">
+                            reason:
+                        </span>{" "}
+                        UserInducedChaos
+                        </p>
+
+                        <p>
+                        <span className="text-[#A4A29B]">
+                            restartPolicy:
+                        </span>{" "}
+                        Always
+                        </p>
+                    </div>
+
+                    <p
+                        className="
+                        text-sm
+                        leading-relaxed
+                        text-[#D2D0C9]
+                        "
+                    >
+                        Everything works perfectly until someone touches production.
+                    </p>
+
+                    <p
+                        className="
+                        mt-4
+                        text-[10px]
+                        text-[#555]
+                        "
+                    >
+                        pod-01 will respawn automatically.
+                    </p>
+
+                    </div>
+                </motion.div>
+                </motion.div>
+            )}
+            </AnimatePresence>
+    </>
+  );
+}
