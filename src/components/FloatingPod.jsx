@@ -36,43 +36,61 @@ export default function FloatingPod() {
       {/* Floating Pod */}
 
       <motion.div
-        drag
-        dragMomentum
-        dragElastic={0.8}
-        initial={{
-          x: 80,
-          y: 80,
-        }}
-        animate={
-          exploded
-            ? {}
-            : {
-                x: [70, 280, 520, 300, 100],
-                y: [80, 40, 180, 260, 80],
-                rotate: [0, 10, -8, 7, 0],
-              }
-        }
-        transition={{
-          duration: 24,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="
-          fixed
-          top-0
-          left-0
-          z-[80]
+            drag
+            dragMomentum
+            dragElastic={0.8}
 
-          hidden
-          sm:block
+            initial={{
+                x: "10vw",
+                y: "15vh",
+            }}
 
-          cursor-grab
-          active:cursor-grabbing
-        "
-        style={{
-          touchAction: "none",
-        }}
-      >
+            animate={
+                exploded
+                ? {}
+                : {
+                    x: [
+                        "10vw",
+                        "70vw",
+                        "35vw",
+                        "80vw",
+                        "15vw",
+                    ],
+
+                    y: [
+                        "15vh",
+                        "30vh",
+                        "55vh",
+                        "70vh",
+                        "20vh",
+                    ],
+
+                    rotate: [0, 10, -8, 7, 0],
+                    }
+            }
+
+            transition={{
+                duration: 24,
+                repeat: Infinity,
+                ease: "easeInOut",
+            }}
+
+            className="
+                fixed
+                top-0
+                left-0
+                z-[80]
+
+                block
+
+                cursor-grab
+                active:cursor-grabbing
+            "
+
+            style={{
+                touchAction: "none",
+            }}
+        >
         <div className="relative">
 
           {/* Pod */}
