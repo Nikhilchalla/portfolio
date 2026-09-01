@@ -60,7 +60,7 @@ export default function Interests() {
       {/* Header */}
 
       <div className="mb-5">
-        <h2 className="
+        <h7 className="
           text-[#F0EFEA]
           text-lg
           flex
@@ -69,7 +69,7 @@ export default function Interests() {
         ">
           <User className="w-4 h-4" />
           root@nikhil:~/interests
-        </h2>
+        </h7>
       </div>
 
       {/* Terminal-style interests panel */}

@@ -294,10 +294,10 @@ export default function Portfolio() {
         <section className="mb-12">
 
           <div className="mb-5">
-            <h5 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+            <h7 className="text-[#F0EFEA] text-lg flex items-center gap-2">
               <UserIcon className="w-4 h-4" />
               root@nikhil:~/
-            </h5>
+            </h7>
           </div>
 
           <div className="mb-4 flex items-center gap-4 sm:gap-5 flex-wrap">
@@ -466,10 +466,10 @@ export default function Portfolio() {
 
           <div className="mb-6">
             
-            <h5 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+            <h7 className="text-[#F0EFEA] text-lg flex items-center gap-2">
               <UserIcon className="w-4 h-4" />
               root@nikhil:~/builds
-            </h5>
+            </h7>
 
             <p className="text-sm text-[#A4A29B] max-w-2xl mt-3 leading-relaxed">
               A few things I've built while trying to understand how
@@ -810,10 +810,10 @@ export default function Portfolio() {
         <section className="mb-12">
 
           <div className="mb-5">
-            <h5 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+            <h7 className="text-[#F0EFEA] text-lg flex items-center gap-2">
               <UserIcon className="w-4 h-4" />
               root@nikhil:~/now
-            </h5>
+            </h7>
           </div>
 
           <div className="
@@ -871,10 +871,10 @@ export default function Portfolio() {
         <section className="mb-12">
 
           <div className="mb-4">
-            <h5 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+            <h7 className="text-[#F0EFEA] text-lg flex items-center gap-2">
               <UserIcon className="w-4 h-4" />
               root@nikhil:~/github
-            </h5>
+            </h7>
           </div>
 
           <div className="
@@ -919,10 +919,10 @@ export default function Portfolio() {
         <section className="mb-12">
 
           <div className="mb-4">
-            <h5 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+            <h7 className="text-[#F0EFEA] text-lg flex items-center gap-2">
               <UserIcon className="w-4 h-4" />
               root@nikhil:~/stack
-            </h5>
+            </h7>
           </div>
 
           <div
