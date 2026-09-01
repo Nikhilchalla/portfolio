@@ -8,6 +8,7 @@ import {
   Headphones,
   Plane,
   Terminal,
+  User,
 } from "lucide-react";
 
 const interests = [
@@ -25,14 +26,6 @@ const interests = [
     title: "Photography",
     description:
       "Capturing random moments, places and memories worth keeping.",
-  },
-
-  {
-    icon: Car,
-    directory: "automobiles/",
-    title: "Automobiles",
-    description:
-      "Cars, automotive engineering, performance and good design.",
   },
 
   {
@@ -58,14 +51,6 @@ const interests = [
     description:
       "Somehow infrastructure became both my profession and one of my interests.",
   },
-
-  {
-    icon: Coffee,
-    directory: "coffee/",
-    title: "Coffee",
-    description:
-      "Usually found somewhere close to the keyboard.",
-  },
 ];
 
 export default function Interests() {
@@ -75,7 +60,6 @@ export default function Interests() {
       {/* Header */}
 
       <div className="mb-5">
-
         <h2 className="
           text-[#F0EFEA]
           text-lg
@@ -83,14 +67,9 @@ export default function Interests() {
           items-center
           gap-2
         ">
-          <Terminal className="w-4 h-4" />
-          Things I Enjoy
-        </h2>
-
-        <p className="text-xs text-[#77756F] mt-2">
+          <User className="w-4 h-4" />
           root@nikhil:~/interests
-        </p>
-
+        </h2>
       </div>
 
       {/* Terminal-style interests panel */}

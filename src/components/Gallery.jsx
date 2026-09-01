@@ -6,6 +6,7 @@ import {
   ChevronLeft,
   ChevronRight,
   MapPin,
+  User,
   X,
 } from "lucide-react";
 
@@ -91,26 +92,17 @@ export default function Gallery() {
 
   return (
     <>
-      <section className="mb-12">
+      <section className="mb-10">
 
         <div className="flex items-center justify-between gap-4 flex-wrap mb-5">
 
           <div>
 
-            <h2 className="text-[#F0EFEA] text-lg flex items-center gap-2">
-              <Camera className="w-4 h-4" />
-              Life Outside the Terminal
-            </h2>
-
-            <p className="text-xs text-[#77756F] mt-2">
+            <h5 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+              <User className="w-4 h-4" />
               root@nikhil:~/life/memories
-            </p>
-
+            </h5>
           </div>
-
-          <p className="text-xs text-[#77756F]">
-            {filteredImages.length} memories
-          </p>
 
         </div>
 

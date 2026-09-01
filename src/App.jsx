@@ -11,14 +11,29 @@ import {
   ExternalLink,
   BookOpen,
   UserIcon,
+  FileText,
+  Cloud,
+  Database,
 } from "lucide-react";
+
+import {
+  SiGooglecloud,
+  SiDocker,
+  SiKubernetes,
+  SiHelm,
+  SiTerraform,
+  SiAnsible,
+  SiGithubactions,
+  SiJenkins,
+  SiGitlab,
+  SiGnubash,
+  SiPython,
+  SiGrafana,
+  SiPrometheus,
+} from "react-icons/si";
 
 import { GitHubCalendar } from "react-github-calendar";
 import { Analytics } from "@vercel/analytics/react";
-
-/* -------------------------------------------------------------------------- */
-/*                                   ICONS                                    */
-/* -------------------------------------------------------------------------- */
 
 const GithubIcon = ({ className }) => (
   <svg
@@ -166,32 +181,23 @@ export default function Portfolio() {
     },
   ];
 
-  const toolbox = [
-    {
-      category: "cloud",
-      tools: "AWS · GCP",
-    },
-    {
-      category: "containers",
-      tools: "Docker · Kubernetes · Helm",
-    },
-    {
-      category: "infrastructure",
-      tools: "Terraform · CloudFormation · Ansible",
-    },
-    {
-      category: "automation",
-      tools: "GitHub Actions · Jenkins · GitLab CI",
-    },
-    {
-      category: "languages",
-      tools: "Bash · Python · YAML",
-    },
-    {
-      category: "observability",
-      tools: "CloudWatch · Grafana · Prometheus · ELK",
-    },
-  ];
+  const tools = [
+  { name: "AWS", icon: Cloud },
+  { name: "Google Cloud", icon: SiGooglecloud },
+  { name: "Docker", icon: SiDocker },
+  { name: "Kubernetes", icon: SiKubernetes },
+  { name: "Helm", icon: SiHelm },
+  { name: "Terraform", icon: SiTerraform },
+  { name: "Ansible", icon: SiAnsible },
+  { name: "GitHub Actions", icon: SiGithubactions },
+  { name: "Jenkins", icon: SiJenkins },
+  { name: "GitLab CI", icon: SiGitlab },
+  { name: "Bash", icon: SiGnubash },
+  { name: "Python", icon: SiPython },
+  { name: "Grafana", icon: SiGrafana },
+  { name: "Prometheus", icon: SiPrometheus },
+  { name: "ELK", icon: Database },
+];
 
   useEffect(() => {
     fetch("/api/analytics", {
@@ -288,16 +294,10 @@ export default function Portfolio() {
         <section className="mb-12">
 
           <div className="mb-5">
-
-            <h2 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+            <h5 className="text-[#F0EFEA] text-lg flex items-center gap-2">
               <UserIcon className="w-4 h-4" />
-              Whoami
-            </h2>
-
-            <p className="text-xs text-[#77756F] mt-2">
               root@nikhil:~/
-            </p>
-
+            </h5>
           </div>
 
           <div className="mb-4 flex items-center gap-4 sm:gap-5 flex-wrap">
@@ -334,88 +334,126 @@ export default function Portfolio() {
             break them occasionally, figure out why, and document what I learn.
           </p>
 
-          <div className="flex gap-2 sm:gap-3 flex-wrap">
+          {/* Connect */}
+
+          <div className="flex items-center gap-2">
 
             <a
               href={github}
               target="_blank"
               rel="noreferrer"
+              aria-label="GitHub"
+              title="GitHub"
               className="
-                flex items-center gap-2
+                w-10 h-10
+                rounded-md
                 border border-[#2A2A2A]
                 bg-[#151515]
-                px-3 py-2
-                rounded
+
+                flex
+                items-center
+                justify-center
+
+                text-[#A4A29B]
+
+                hover:text-[#F0EFEA]
                 hover:bg-[#1A1A1A]
                 hover:border-[#3A3A3A]
-                transition-colors
-                text-sm
-                text-[#B8B6AF]
+
+                transition-all
+                duration-300
+
+                focus:outline-none
+                focus-visible:ring-2
+                focus-visible:ring-[#C66A3A]/50
               "
             >
               <GithubIcon className="w-4 h-4" />
-              GitHub
             </a>
 
             <a
               href={linkedin}
               target="_blank"
               rel="noreferrer"
+              aria-label="LinkedIn"
+              title="LinkedIn"
               className="
-                flex items-center gap-2
+                w-10 h-10
+                rounded-md
                 border border-[#2A2A2A]
                 bg-[#151515]
-                px-3 py-2
-                rounded
+
+                flex
+                items-center
+                justify-center
+
+                text-[#A4A29B]
+
+                hover:text-[#F0EFEA]
                 hover:bg-[#1A1A1A]
                 hover:border-[#3A3A3A]
-                transition-colors
-                text-sm
-                text-[#B8B6AF]
+
+                transition-all
+                duration-300
               "
             >
               <LinkedinIcon className="w-4 h-4" />
-              LinkedIn
             </a>
 
             <a
               href={`mailto:${email}`}
+              aria-label="Email"
+              title="Email"
               className="
-                flex items-center gap-2
+                w-10 h-10
+                rounded-md
                 border border-[#2A2A2A]
                 bg-[#151515]
-                px-3 py-2
-                rounded
+
+                flex
+                items-center
+                justify-center
+
+                text-[#A4A29B]
+
+                hover:text-[#C66A3A]
                 hover:bg-[#1A1A1A]
-                hover:border-[#3A3A3A]
-                transition-colors
-                text-sm
-                text-[#B8B6AF]
+                hover:border-[#C66A3A]/50
+
+                transition-all
+                duration-300
               "
             >
               <Mail className="w-4 h-4" />
-              Email
             </a>
 
             <a
               href={resume}
               target="_blank"
               rel="noreferrer"
+              aria-label="Resume"
+              title="Resume"
               className="
-                flex items-center gap-2
+                w-10 h-10
+                rounded-md
                 border border-[#2A2A2A]
                 bg-[#151515]
-                px-3 py-2
-                rounded
+
+                flex
+                items-center
+                justify-center
+
+                text-[#A4A29B]
+
+                hover:text-[#C66A3A]
                 hover:bg-[#1A1A1A]
-                hover:border-[#3A3A3A]
-                transition-colors
-                text-sm
-                text-[#B8B6AF]
+                hover:border-[#C66A3A]/50
+
+                transition-all
+                duration-300
               "
             >
-              <ExternalLink className="w-4 h-4" />
-              Resume
+              <FileText className="w-4 h-4" />
             </a>
 
           </div>
@@ -427,15 +465,11 @@ export default function Portfolio() {
         <section className="mb-12">
 
           <div className="mb-6">
-
-            <h2 className="text-[#F0EFEA] text-lg flex items-center gap-2">
-              <Container className="w-4 h-4" />
-              What I'm Building
-            </h2>
-
-            <p className="text-xs text-[#77756F] mt-2">
+            
+            <h5 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+              <UserIcon className="w-4 h-4" />
               root@nikhil:~/builds
-            </p>
+            </h5>
 
             <p className="text-sm text-[#A4A29B] max-w-2xl mt-3 leading-relaxed">
               A few things I've built while trying to understand how
@@ -776,16 +810,10 @@ export default function Portfolio() {
         <section className="mb-12">
 
           <div className="mb-5">
-
-            <h2 className="text-[#F0EFEA] text-lg flex items-center gap-2">
-              <BookOpen className="w-4 h-4" />
-              What I'm Exploring
-            </h2>
-
-            <p className="text-xs text-[#77756F] mt-2">
+            <h5 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+              <UserIcon className="w-4 h-4" />
               root@nikhil:~/now
-            </p>
-
+            </h5>
           </div>
 
           <div className="
@@ -843,16 +871,10 @@ export default function Portfolio() {
         <section className="mb-12">
 
           <div className="mb-4">
-
-            <h2 className="text-[#F0EFEA] text-lg flex items-center gap-2">
-              <GithubIcon className="w-4 h-4" />
-              GitHub Activity
-            </h2>
-
-            <p className="text-xs text-[#77756F] mt-2">
+            <h5 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+              <UserIcon className="w-4 h-4" />
               root@nikhil:~/github
-            </p>
-
+            </h5>
           </div>
 
           <div className="
@@ -897,64 +919,107 @@ export default function Portfolio() {
         <section className="mb-12">
 
           <div className="mb-4">
-
-            <h2 className="text-[#F0EFEA] text-lg flex items-center gap-2">
-              <Server className="w-4 h-4" />
-              Tools I Use
-            </h2>
-
-            <p className="text-xs text-[#77756F] mt-2">
+            <h5 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+              <UserIcon className="w-4 h-4" />
               root@nikhil:~/stack
-            </p>
-
+            </h5>
           </div>
 
-          <div className="
-            border border-[#2A2A2A]
-            rounded-md
-            bg-[#151515]
-            overflow-hidden
-          ">
-
-            <div className="
-              px-4 py-2
-              border-b border-[#2A2A2A]
-              bg-[#111111]
-              text-[10px]
-              text-[#77756F]
-            ">
-              root@nikhil:~/stack$ cat everyday.tools
+          <div
+            className="
+              border border-[#2A2A2A]
+              rounded-md
+              bg-[#151515]
+              overflow-hidden
+            "
+          >
+            <div
+              className="
+                px-4 py-2
+                border-b border-[#2A2A2A]
+                bg-[#111111]
+                text-[10px]
+                text-[#77756F]
+              "
+            >
+              root@nikhil:~/stack$ ls
             </div>
 
-            <div className="divide-y divide-[#2A2A2A]">
+            <div
+              className="
+                grid
+                grid-cols-3
+                sm:grid-cols-4
+                md:grid-cols-5
+                gap-px
+                bg-[#2A2A2A]
+              "
+            >
+              {tools.map((tool) => {
+                const Icon = tool.icon;
 
-              {toolbox.map((item) => (
+                return (
+                  <div
+                    key={tool.name}
+                    title={tool.name}
+                    className="
+                      group
+                      min-h-[105px]
+                      bg-[#151515]
+                      flex
+                      flex-col
+                      items-center
+                      justify-center
+                      gap-3
+                      px-3
+                      py-5
+                      hover:bg-[#1A1A1A]
+                      transition-colors
+                      duration-300
+                    "
+                  >
+                    <Icon
+                      className="
+                        w-6 h-6
+                        text-[#77756F]
+                        group-hover:text-[#C66A3A]
+                        transition-all
+                        duration-300
+                        group-hover:scale-110
+                      "
+                    />
 
-                <div
-                  key={item.category}
-                  className="
-                    grid
-                    md:grid-cols-[150px_1fr]
-                    gap-1 md:gap-6
-                    px-4 py-3
-                    text-sm
-                  "
-                >
-
-                  <span className="text-[#C66A3A]">
-                    {item.category}
-                  </span>
-
-                  <span className="text-[#A4A29B]">
-                    {item.tools}
-                  </span>
-
-                </div>
-
-              ))}
-
+                    <span
+                      className="
+                        text-[10px]
+                        sm:text-[11px]
+                        text-center
+                        text-[#77756F]
+                        group-hover:text-[#B8B6AF]
+                        transition-colors
+                      "
+                    >
+                      {tool.name}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
 
+            <div
+              className="
+                px-4 py-2.5
+                border-t border-[#2A2A2A]
+                bg-[#111111]
+                text-[10px]
+                text-[#555]
+              "
+            >
+              {tools.length} binaries available.
+              <span className="text-[#C66A3A] animate-pulse ml-2">
+                ▊
+              </span>
+            </div>
           </div>
 
         </section>
