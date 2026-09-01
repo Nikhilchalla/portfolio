@@ -1,4 +1,4 @@
-import Gallery from "./components/Gallery";
+//import Gallery from "./components/Gallery";
 import Interests from "./components/Interests";
 import FloatingPod from "./components/FloatingPod";
 import { useEffect, useState } from "react";
@@ -294,10 +294,10 @@ export default function Portfolio() {
         <section className="mb-12">
 
           <div className="mb-5">
-            <h7 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+            <h6 className="text-[#F0EFEA] text-lg flex items-center gap-2">
               <UserIcon className="w-4 h-4" />
               root@nikhil:~/
-            </h7>
+            </h6>
           </div>
 
           <div className="mb-4 flex items-center gap-4 sm:gap-5 flex-wrap">
@@ -466,10 +466,10 @@ export default function Portfolio() {
 
           <div className="mb-6">
             
-            <h7 className="text-[#F0EFEA] text-lg flex items-center gap-2">
-              <UserIcon className="w-4 h-4" />
+            <h6 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+              <Container className="w-4 h-4" />
               root@nikhil:~/builds
-            </h7>
+            </h6>
 
             <p className="text-sm text-[#A4A29B] max-w-2xl mt-3 leading-relaxed">
               A few things I've built while trying to understand how
@@ -811,7 +811,7 @@ export default function Portfolio() {
 
           <div className="mb-5">
             <h7 className="text-[#F0EFEA] text-lg flex items-center gap-2">
-              <UserIcon className="w-4 h-4" />
+              <BookOpen className="w-4 h-4" />
               root@nikhil:~/now
             </h7>
           </div>
@@ -871,10 +871,10 @@ export default function Portfolio() {
         <section className="mb-12">
 
           <div className="mb-4">
-            <h7 className="text-[#F0EFEA] text-lg flex items-center gap-2">
-              <UserIcon className="w-4 h-4" />
+            <h6 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+              <GithubIcon className="w-4 h-4" />
               root@nikhil:~/github
-            </h7>
+            </h6>
           </div>
 
           <div className="
@@ -910,7 +910,7 @@ export default function Portfolio() {
 
         {/* PERSONAL */}
 
-        <Gallery />
+        {/* <Gallery /> */}
 
         <Interests />
 
@@ -919,10 +919,10 @@ export default function Portfolio() {
         <section className="mb-12">
 
           <div className="mb-4">
-            <h7 className="text-[#F0EFEA] text-lg flex items-center gap-2">
-              <UserIcon className="w-4 h-4" />
+            <h6 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+              <Server className="w-4 h-4" />
               root@nikhil:~/stack
-            </h7>
+            </h6>
           </div>
 
           <div

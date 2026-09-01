@@ -98,10 +98,10 @@ export default function Gallery() {
 
           <div>
 
-            <h7 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+            <h6 className="text-[#F0EFEA] text-lg flex items-center gap-2">
               <User className="w-4 h-4" />
               root@nikhil:~/life/memories
-            </h7>
+            </h6>
           </div>
 
         </div>
