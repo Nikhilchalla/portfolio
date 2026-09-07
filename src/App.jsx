@@ -70,7 +70,7 @@ export default function Portfolio() {
   const github = `https://github.com/${githubUsername}`;
 
   const resume =
-    "https://drive.google.com/file/d/17Ph35yH7Wb8RlmHSJyuFsi_bqFE3u6Za/view?usp=drive_link";
+    "https://drive.google.com/file/d/1hE33B4JXxB9ZJewpjya09xX3r46dEMj_/view?usp=drive_link";
 
   const projects = [
     {
