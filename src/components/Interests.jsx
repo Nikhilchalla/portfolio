@@ -1,13 +1,10 @@
 import { motion } from "motion/react";
 import {
   Camera,
-  Car,
   Cloud,
-  Coffee,
   Globe2,
   Headphones,
   Plane,
-  Terminal,
   User,
 } from "lucide-react";
 
