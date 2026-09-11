@@ -2,7 +2,6 @@
 import Interests from "./components/Interests";
 import FloatingPod from "./components/FloatingPod";
 import { useEffect, useState } from "react";
-
 import {
   Mail,
   ChevronDown,
@@ -14,6 +13,8 @@ import {
   FileText,
   Cloud,
   Database,
+  Moon,
+  Sun,
 } from "lucide-react";
 
 import {
@@ -64,6 +65,10 @@ export default function Portfolio() {
   const [pageViews, setPageViews] = useState(null);
   const [visitors, setVisitors] = useState(null);
   const [openProject, setOpenProject] = useState(null);
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = window.localStorage.getItem("portfolio-theme");
+    return savedTheme === "light" ? "light" : "dark";
+  });
 
   const email = "nikhilchalla511@gmail.com";
   const linkedin = "https://linkedin.com/in/nikhil-challa";
@@ -227,13 +232,17 @@ export default function Portfolio() {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    window.localStorage.setItem("portfolio-theme", theme);
+  }, [theme]);
+
   const formattedTime = time.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
   });
 
   return (
-    <div className="min-h-screen bg-[#0E0E0E] text-[#B8B6AF] font-mono">
+    <div className={`portfolio-shell theme-${theme} min-h-screen bg-[#0E0E0E] text-[#B8B6AF] font-mono`}>
 
       {/* Status Bar */}
 
@@ -253,9 +262,37 @@ export default function Portfolio() {
 
           </div>
 
-          <span>
-            {formattedTime}
-          </span>
+          <div className="flex items-center gap-3">
+            <span>
+              {formattedTime}
+            </span>
+
+            <button
+              type="button"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="
+                w-8 h-8
+                rounded-md
+                border border-[#2A2A2A]
+                bg-[#151515]
+                flex
+                items-center
+                justify-center
+                text-[#A4A29B]
+                hover:text-[#C66A3A]
+                hover:bg-[#1A1A1A]
+                transition-colors
+              "
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            >
+              {theme === "dark" ? (
+                <Sun className="w-4 h-4" />
+              ) : (
+                <Moon className="w-4 h-4" />
+              )}
+            </button>
+          </div>
 
         </div>
       </div>
@@ -462,7 +499,7 @@ export default function Portfolio() {
 
         {/* BUILDS */}
 
-        <section className="mb-12">
+        <section id="builds" className="mb-12">
 
           <div className="mb-6">
             
@@ -807,13 +844,13 @@ export default function Portfolio() {
 
         {/* EXPLORING */}
 
-        <section className="mb-12">
+        <section id="exploring" className="mb-12">
 
           <div className="mb-5">
-            <h7 className="text-[#F0EFEA] text-lg flex items-center gap-2">
+            <h6 className="text-[#F0EFEA] text-lg flex items-center gap-2">
               <BookOpen className="w-4 h-4" />
               root@nikhil:~/now
-            </h7>
+            </h6>
           </div>
 
           <div className="
@@ -868,7 +905,7 @@ export default function Portfolio() {
 
         {/* GITHUB */}
 
-        <section className="mb-12">
+        <section id="github" className="mb-12">
 
           <div className="mb-4">
             <h6 className="text-[#F0EFEA] text-lg flex items-center gap-2">
@@ -887,20 +924,15 @@ export default function Portfolio() {
 
             <GitHubCalendar
               username={githubUsername}
-              colorScheme="dark"
+              colorScheme={theme}
               blockSize={14}
               blockMargin={4}
               fontSize={13}
               hideColorLegend={false}
               hideMonthLabels={false}
               theme={{
-                dark: [
-                  "#202020",
-                  "#3B403C",
-                  "#4E6554",
-                  "#62806B",
-                  "#70977C",
-                ],
+                dark: ["#202020", "#3B403C", "#4E6554", "#62806B", "#70977C"],
+                light: ["#EBE9E3", "#D3DDD4", "#B5C9B9", "#91AD97", "#70977C"],
               }}
             />
 
@@ -916,7 +948,7 @@ export default function Portfolio() {
 
         {/* TOOLBOX */}
 
-        <section className="mb-12">
+        <section id="tools" className="mb-12">
 
           <div className="mb-4">
             <h6 className="text-[#F0EFEA] text-lg flex items-center gap-2">
