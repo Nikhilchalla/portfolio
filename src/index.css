@@ -35,26 +35,55 @@
   color: var(--theme-body);
 }
 
-.theme-light [class~="bg-[#0E0E0E]"] { background-color: var(--theme-background) !important; }
-.theme-light [class~="bg-[#151515]"] { background-color: var(--theme-surface) !important; }
-.theme-light [class~="bg-[#111111]"] { background-color: var(--theme-surface-alt) !important; }
+.theme-light [class~="bg-[#0E0E0E]"],
+.theme-light [class~="bg-[#080808]/95"] { background-color: var(--theme-background) !important; }
+.theme-light [class~="bg-[#151515]"],
+.theme-light [class~="bg-[#151515]/90"] { background-color: var(--theme-surface) !important; }
+.theme-light [class~="bg-[#111111]"],
+.theme-light [class~="bg-[#111111]/95"] { background-color: var(--theme-surface-alt) !important; }
 .theme-light [class~="bg-[#101010]"] { background-color: var(--theme-inset) !important; }
 .theme-light [class~="bg-[#181818]"],
 .theme-light [class~="hover:bg-[#181818]"]:hover,
-.theme-light [class~="hover:bg-[#1A1A1A]"]:hover { background-color: var(--theme-hover) !important; }
+.theme-light [class~="hover:bg-[#1A1A1A]"]:hover,
+.theme-light [class~="bg-[#343434]"] { background-color: var(--theme-hover) !important; }
 
 .theme-light [class~="border-[#2A2A2A]"],
 .theme-light [class~="border-[#303030]"],
 .theme-light [class~="border-[#343434]"],
-.theme-light [class~="border-[#3A3A3A]"] { border-color: var(--theme-border) !important; }
+.theme-light [class~="border-[#3A3A3A]"],
+.theme-light [class~="border-[#555]"] { border-color: var(--theme-border) !important; }
 
 .theme-light [class~="text-[#F0EFEA]"] { color: var(--theme-text) !important; }
 .theme-light [class~="text-[#B8B6AF]"] { color: var(--theme-body) !important; }
 .theme-light [class~="text-[#A4A29B]"] { color: var(--theme-muted) !important; }
 .theme-light [class~="text-[#77756F]"] { color: var(--theme-subtle) !important; }
 .theme-light [class~="text-[#D2D0C9]"] { color: var(--theme-soft) !important; }
+.theme-light [class~="text-white/60"],
+.theme-light [class~="text-white"],
+.theme-light [class~="text-white/50"],
+.theme-light [class~="text-white/45"],
+.theme-light [class~="text-white/35"] { color: var(--theme-body) !important; }
 .theme-light [class~="hover:text-[#F0EFEA]"]:hover { color: var(--theme-text) !important; }
+.theme-light [class~="hover:text-[#E07A47]"]:hover { color: #a94f27 !important; }
 
 .theme-light .react-activity-calendar text {
   fill: var(--theme-subtle) !important;
+}
+
+.theme-light [class~="shadow-black/30"],
+.theme-light [class~="shadow-black/50"] {
+  --tw-shadow-color: rgb(47 46 42 / 0.14) !important;
+}
+
+.theme-light [class~="bg-[#C66A3A]/40"] {
+  background-color: rgb(198 106 58 / 0.18) !important;
+}
+
+.theme-light [class~="border-white/10"],
+.theme-light [class~="border-white/15"] {
+  border-color: var(--theme-border) !important;
+}
+
+.theme-light [class~="hover:bg-white/10"]:hover {
+  background-color: var(--theme-hover) !important;
 }

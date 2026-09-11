@@ -80,34 +80,6 @@ export default function Portfolio() {
   const projects = [
     {
       number: "01",
-      slug: "packet-journey",
-      title: "Kubernetes Request Flow Visualizer",
-      intro:
-        "I wanted to understand what actually happens after a request enters a Kubernetes cluster, so I built a visual way to follow the journey.",
-      story:
-        "The project follows a request from the browser through Ingress, Service, kube-proxy and cluster networking until it reaches the Pod. I later connected the visualizer to a locally simulated Kubernetes environment so it could move beyond being just a static diagram.",
-      learned: [
-        "Kubernetes networking",
-        "Ingress & Services",
-        "kube-proxy",
-        "Request routing",
-        "Frontend visualization",
-      ],
-      stack: ["React", "Kubernetes", "k3s", "Docker"],
-      architecture: [
-        "Browser",
-        "Ingress",
-        "Service",
-        "kube-proxy",
-        "Pod",
-      ],
-      github:
-        "https://github.com/Nikhilchalla/k8s-request-flow-visualizer",
-      demo: null,
-    },
-
-    {
-      number: "02",
       slug: "terraform-ha",
       title: "Highly Available AWS App with Terraform",
       intro:
@@ -135,30 +107,29 @@ export default function Portfolio() {
     },
 
     {
-      number: "03",
-      slug: "books-demo",
-      title: "Books App on Kubernetes",
+      number: "02",
+      slug: "cloud-observability",
+      title: "Cloud-Native Observability Stack",
       intro:
-        "A small full-stack application I used to understand how application and database workloads communicate inside Kubernetes.",
+        "A multi-cluster monitoring platform built to make Kubernetes health, application performance, and infrastructure bottlenecks visible in real time.",
       story:
-        "The application runs inside Kubernetes with PostgreSQL as the database, Ingress handling incoming traffic and Services connecting the different workloads. The app itself is intentionally simple — the interesting part is the infrastructure underneath it.",
+        "I deployed a multi-cluster monitoring framework with Prometheus Operator and Grafana on AWS EKS. Centralized dashboards expose API latency, CPU bottlenecks, memory footprints, and application telemetry, while custom Alertmanager routing sends webhook notifications and reduced critical anomaly response time by over 40%.",
       learned: [
-        "Kubernetes deployments",
-        "PostgreSQL",
-        "Ingress",
-        "Service discovery",
-        "Container networking",
+        "Multi-cluster monitoring",
+        "Prometheus Operator",
+        "Grafana dashboards",
+        "Alertmanager routing",
+        "Application telemetry",
       ],
-      stack: ["Kubernetes", "PostgreSQL", "Docker", "Ingress"],
+      stack: ["Kubernetes", "Prometheus", "Grafana", "AWS", "Alertmanager"],
       architecture: [
-        "Browser",
-        "Ingress",
-        "App Service",
-        "Application Pod",
-        "PostgreSQL",
+        "AWS EKS",
+        "Prometheus Operator",
+        "Alertmanager",
+        "Webhook notifications",
+        "Grafana",
       ],
-      github:
-        "https://github.com/Nikhilchalla/books-demo",
+      github: "https://github.com/Nikhilchalla",
       demo: null,
     },
   ];
@@ -187,22 +158,22 @@ export default function Portfolio() {
   ];
 
   const tools = [
-  { name: "AWS", icon: Cloud },
-  { name: "Google Cloud", icon: SiGooglecloud },
-  { name: "Docker", icon: SiDocker },
-  { name: "Kubernetes", icon: SiKubernetes },
-  { name: "Helm", icon: SiHelm },
-  { name: "Terraform", icon: SiTerraform },
-  { name: "Ansible", icon: SiAnsible },
-  { name: "GitHub Actions", icon: SiGithubactions },
-  { name: "Jenkins", icon: SiJenkins },
-  { name: "GitLab CI", icon: SiGitlab },
-  { name: "Bash", icon: SiGnubash },
-  { name: "Python", icon: SiPython },
-  { name: "Grafana", icon: SiGrafana },
-  { name: "Prometheus", icon: SiPrometheus },
-  { name: "ELK", icon: Database },
-];
+    { name: "AWS", icon: Cloud, color: "#FF9900" },
+    { name: "Google Cloud", icon: SiGooglecloud, color: "#4285F4" },
+    { name: "Docker", icon: SiDocker, color: "#2496ED" },
+    { name: "Kubernetes", icon: SiKubernetes, color: "#326CE5" },
+    { name: "Helm", icon: SiHelm, color: "#0F1689" },
+    { name: "Terraform", icon: SiTerraform, color: "#844FBA" },
+    { name: "Ansible", icon: SiAnsible, color: "#EE0000" },
+    { name: "GitHub Actions", icon: SiGithubactions, color: "#2088FF" },
+    { name: "Jenkins", icon: SiJenkins, color: "#D24939" },
+    { name: "GitLab CI", icon: SiGitlab, color: "#FC6D26" },
+    { name: "Bash", icon: SiGnubash, color: "#4EAA25" },
+    { name: "Python", icon: SiPython, color: "#3776AB" },
+    { name: "Grafana", icon: SiGrafana, color: "#F46800" },
+    { name: "Prometheus", icon: SiPrometheus, color: "#E6522C" },
+    { name: "ELK", icon: Database, color: "#FEC514" },
+  ];
 
   useEffect(() => {
     fetch("/api/analytics", {
@@ -957,101 +928,26 @@ export default function Portfolio() {
             </h6>
           </div>
 
-          <div
-            className="
-              border border-[#2A2A2A]
-              rounded-md
-              bg-[#151515]
-              overflow-hidden
-            "
-          >
-            <div
-              className="
-                px-4 py-2
-                border-b border-[#2A2A2A]
-                bg-[#111111]
-                text-[10px]
-                text-[#77756F]
-              "
-            >
-              root@nikhil:~/stack$ ls
-            </div>
+          <div className="flex flex-wrap items-center gap-x-7 gap-y-6 py-2">
+            {tools.map((tool) => {
+              const Icon = tool.icon;
 
-            <div
-              className="
-                grid
-                grid-cols-3
-                sm:grid-cols-4
-                md:grid-cols-5
-                gap-px
-                bg-[#2A2A2A]
-              "
-            >
-              {tools.map((tool) => {
-                const Icon = tool.icon;
-
-                return (
-                  <div
-                    key={tool.name}
-                    title={tool.name}
-                    className="
-                      group
-                      min-h-[105px]
-                      bg-[#151515]
-                      flex
-                      flex-col
-                      items-center
-                      justify-center
-                      gap-3
-                      px-3
-                      py-5
-                      hover:bg-[#1A1A1A]
-                      transition-colors
-                      duration-300
-                    "
-                  >
-                    <Icon
-                      className="
-                        w-6 h-6
-                        text-[#77756F]
-                        group-hover:text-[#C66A3A]
-                        transition-all
-                        duration-300
-                        group-hover:scale-110
-                      "
-                    />
-
-                    <span
-                      className="
-                        text-[10px]
-                        sm:text-[11px]
-                        text-center
-                        text-[#77756F]
-                        group-hover:text-[#B8B6AF]
-                        transition-colors
-                      "
-                    >
-                      {tool.name}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div
-              className="
-                px-4 py-2.5
-                border-t border-[#2A2A2A]
-                bg-[#111111]
-                text-[10px]
-                text-[#555]
-              "
-            >
-              {tools.length} binaries available.
-              <span className="text-[#C66A3A] animate-pulse ml-2">
-                ▊
-              </span>
-            </div>
+              return (
+                <span
+                  key={tool.name}
+                  title={tool.name}
+                  aria-label={tool.name}
+                  role="img"
+                  className="group flex items-center justify-center"
+                >
+                  <Icon
+                    className="w-8 h-8 transition-transform duration-300 group-hover:scale-110"
+                    style={{ color: tool.color }}
+                    aria-hidden="true"
+                  />
+                </span>
+              );
+            })}
           </div>
 
         </section>
