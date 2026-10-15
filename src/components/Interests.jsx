@@ -12,39 +12,30 @@ const interests = [
   {
     icon: Plane,
     directory: "travel/",
-    title: "Travel",
     description:
       "Exploring cities, cultures, food and places outside my usual environment.",
   },
-
   {
     icon: Camera,
     directory: "photography/",
-    title: "Photography",
     description:
       "Capturing random moments, places and memories worth keeping.",
   },
-
   {
     icon: Headphones,
     directory: "music/",
-    title: "Music",
     description:
       "Something is usually playing while I'm coding, travelling or working.",
   },
-
   {
     icon: Globe2,
     directory: "web3/",
-    title: "Web3",
     description:
       "Blockchain ecosystems, communities and experimenting with new technology.",
   },
-
   {
     icon: Cloud,
     directory: "cloud/",
-    title: "Cloud",
     description:
       "Somehow infrastructure became both my profession and one of my interests.",
   },
@@ -52,179 +43,98 @@ const interests = [
 
 export default function Interests() {
   return (
-    <section className="mb-12">
-
-      {/* Header */}
-
+    <section className="mb-14">
       <div className="mb-5">
-        <h7 className="
-          text-[#F0EFEA]
-          text-lg
-          flex
-          items-center
-          gap-2
-        ">
-          <User className="w-4 h-4" />
+        <h2 className="flex items-center gap-2 text-lg text-[var(--heading)]">
+          <User className="w-4 h-4 text-[var(--muted)]" />
           root@nikhil:~/interests
-        </h7>
+        </h2>
       </div>
 
-      {/* Terminal-style interests panel */}
+      <div>
+        {interests.map((interest, index) => {
+          const Icon = interest.icon;
 
-      <div
-        className="
-          border
-          border-[#2A2A2A]
-          rounded-md
-          overflow-hidden
-          bg-[#151515]
-        "
-      >
-
-        {/* Terminal header */}
-
-        <div
-          className="
-            px-4
-            py-3
-            bg-[#111111]
-            border-b
-            border-[#2A2A2A]
-            text-xs
-            text-[#77756F]
-          "
-        >
-          ~/nikhil/interests
-        </div>
-
-        {/* Interest directories */}
-
-        <div className="divide-y divide-[#2A2A2A]">
-
-          {interests.map((interest, index) => {
-            const Icon = interest.icon;
-
-            return (
-              <motion.div
-                key={interest.directory}
-                initial={{
-                  opacity: 0,
-                  x: -16,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  x: 0,
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.4,
-                }}
-                transition={{
-                  duration: 0.4,
-                  delay: index * 0.07,
-                }}
-                className="
-                  group
-
-                  grid
-                  md:grid-cols-[180px_1fr]
-
-                  gap-2
-                  md:gap-6
-
-                  px-4
-                  py-4
-
-                  hover:bg-[#1A1A1A]
-
-                  transition-colors
-                  duration-300
-                "
-              >
-
-                {/* Directory */}
-
-                <div className="flex items-center gap-3 min-w-0">
-
-                  <Icon
-                    className="
-                      w-4
-                      h-4
-                      shrink-0
-                      text-[#C66A3A]
-
-                      transition-colors
-                      duration-300
-
-                      group-hover:text-[#E07A47]
-                    "
-                  />
-
-                  <span
-                    className="
-                      text-sm
-                      text-[#F0EFEA]
-
-                      transition-colors
-                      duration-300
-
-                      group-hover:text-[#C66A3A]
-                    "
-                  >
-                    {interest.directory}
-                  </span>
-
+          return (
+            <motion.div
+              key={interest.directory}
+              initial={{
+                opacity: 0,
+                y: 10,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.3,
+              }}
+              transition={{
+                duration: 0.35,
+                delay: index * 0.05,
+              }}
+              className="
+                group
+                grid
+                gap-3
+                py-5
+                border-b
+                border-[var(--border)]
+                sm:grid-cols-[190px_1fr]
+                sm:gap-6
+                transition-colors
+              "
+            >
+              <div className="flex items-center gap-3 min-w-0">
+                <div
+                  className="
+                    w-8
+                    h-8
+                    shrink-0
+                    rounded-md
+                    border
+                    border-[var(--border)]
+                    bg-[var(--surface)]
+                    flex
+                    items-center
+                    justify-center
+                    text-[var(--muted)]
+                    transition-all
+                    duration-300
+                    group-hover:text-[var(--accent)]
+                    group-hover:border-[var(--border-hover)]
+                    group-hover:bg-[var(--surface-hover)]
+                  "
+                >
+                  <Icon className="w-4 h-4" />
                 </div>
 
-                {/* Description */}
-
-                <div className="min-w-0">
-
-                  <p className="
+                <span
+                  className="
                     text-sm
-                    text-[#A4A29B]
-                    leading-relaxed
-                  ">
-                    {interest.description}
-                  </p>
+                    text-[var(--heading)]
+                    transition-colors
+                    duration-300
+                    group-hover:text-[var(--accent)]
+                  "
+                >
+                  {interest.directory}
+                </span>
+              </div>
 
-                </div>
-
-              </motion.div>
-            );
-          })}
-
-        </div>
-
-        {/* Footer */}
-
-        <div
-          className="
-            px-4
-            py-3
-
-            border-t
-            border-[#2A2A2A]
-
-            bg-[#111111]
-
-            text-xs
-            text-[#77756F]
-          "
-        >
-          {interests.length} directories found.
-
-          <span className="
-            animate-pulse
-            ml-2
-            text-[#C66A3A]
-          ">
-            ▊
-          </span>
-        </div>
-
+              <p className="text-sm leading-relaxed text-[var(--body)]">
+                {interest.description}
+              </p>
+            </motion.div>
+          );
+        })}
       </div>
 
+      <div className="mt-4 text-[10px] text-[var(--muted)]">
+        {interests.length} directories found.
+        <span className="ml-2 text-[var(--accent)] animate-pulse">▊</span>
+      </div>
     </section>
   );
 }

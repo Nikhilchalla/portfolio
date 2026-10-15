@@ -1,10 +1,9 @@
-//import Gallery from "./components/Gallery";
 import Interests from "./components/Interests";
 import FloatingPod from "./components/FloatingPod";
 import { useEffect, useState } from "react";
+import { Ascii } from "ascii.rest/react";
 import {
   Mail,
-  ChevronDown,
   Server,
   Container,
   ExternalLink,
@@ -16,7 +15,6 @@ import {
   Moon,
   Sun,
 } from "lucide-react";
-
 import {
   SiGooglecloud,
   SiDocker,
@@ -32,7 +30,6 @@ import {
   SiGrafana,
   SiPrometheus,
 } from "react-icons/si";
-
 import { GitHubCalendar } from "react-github-calendar";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -58,81 +55,97 @@ const LinkedinIcon = ({ className }) => (
   </svg>
 );
 
+const themes = {
+  dark: {
+    page: "#0B0D10",
+    surface: "#111419",
+    surfaceHover: "#161A20",
+    surfaceDeep: "#0D1014",
+    border: "#242932",
+    borderHover: "#343B46",
+    heading: "#F1F3F5",
+    body: "#A7ADB7",
+    muted: "#68707C",
+    faint: "#444B55",
+    accent: "#8AADF4",
+    accentHover: "#A5BFF8",
+    green: "#7EE787",
+  },
+  light: {
+  page: "#F1F2F4",
+  surface: "#F8F9FA",
+  surfaceHover: "#ECEFF2",
+  surfaceDeep: "#E5E8EC",
+  border: "#CDD3DA",
+  borderHover: "#AEB6C0",
+
+  heading: "#111318",
+  body: "#343A44",
+  muted: "#5E6672",
+  faint: "#818996",
+
+  accent: "#3F5F9B",
+  accentHover: "#2F4F87",
+  green: "#2F7D4B",
+},
+};
+
 export default function Portfolio() {
   const githubUsername = "Nikhilchalla";
-
   const [time, setTime] = useState(new Date());
   const [pageViews, setPageViews] = useState(null);
   const [visitors, setVisitors] = useState(null);
-  const [openProject, setOpenProject] = useState(null);
   const [theme, setTheme] = useState(() => {
     const savedTheme = window.localStorage.getItem("portfolio-theme");
     return savedTheme === "light" ? "light" : "dark";
   });
 
+  const colors = themes[theme];
+
+  const themeVars = {
+    "--page": colors.page,
+    "--surface": colors.surface,
+    "--surface-hover": colors.surfaceHover,
+    "--surface-deep": colors.surfaceDeep,
+    "--border": colors.border,
+    "--border-hover": colors.borderHover,
+    "--heading": colors.heading,
+    "--body": colors.body,
+    "--muted": colors.muted,
+    "--faint": colors.faint,
+    "--accent": colors.accent,
+    "--accent-hover": colors.accentHover,
+    "--green": colors.green,
+  };
+
   const email = "nikhilchalla511@gmail.com";
   const linkedin = "https://linkedin.com/in/nikhil-challa";
   const github = `https://github.com/${githubUsername}`;
-
   const resume =
     "https://drive.google.com/file/d/1hE33B4JXxB9ZJewpjya09xX3r46dEMj_/view?usp=drive_link";
 
   const projects = [
-    {
-      number: "01",
-      slug: "terraform-ha",
-      title: "Highly Available AWS App with Terraform",
-      intro:
-        "A hands-on experiment in building infrastructure that doesn't depend on a single server.",
-      story:
-        "I provisioned a VPC, multiple public subnets, an Application Load Balancer and an Auto Scaling Group using Terraform. Each instance exposes its availability zone, instance ID and uptime, which made it easy to watch requests move across infrastructure.",
-      learned: [
-        "Infrastructure as Code",
-        "High availability",
-        "Load balancing",
-        "Auto Scaling",
-        "AWS networking",
-      ],
-      stack: ["Terraform", "AWS", "Flask", "EC2", "ALB"],
-      architecture: [
-        "Client",
-        "Application Load Balancer",
-        "Auto Scaling Group",
-        "EC2",
-        "Flask",
-      ],
-      github:
-        "https://github.com/Nikhilchalla/terraform-aws-ha-flask",
-      demo: null,
-    },
-
-    {
-      number: "02",
-      slug: "cloud-observability",
-      title: "Cloud-Native Observability Stack",
-      intro:
-        "A multi-cluster monitoring platform built to make Kubernetes health, application performance, and infrastructure bottlenecks visible in real time.",
-      story:
-        "I deployed a multi-cluster monitoring framework with Prometheus Operator and Grafana on AWS EKS. Centralized dashboards expose API latency, CPU bottlenecks, memory footprints, and application telemetry, while custom Alertmanager routing sends webhook notifications and reduced critical anomaly response time by over 40%.",
-      learned: [
-        "Multi-cluster monitoring",
-        "Prometheus Operator",
-        "Grafana dashboards",
-        "Alertmanager routing",
-        "Application telemetry",
-      ],
-      stack: ["Kubernetes", "Prometheus", "Grafana", "AWS", "Alertmanager"],
-      architecture: [
-        "AWS EKS",
-        "Prometheus Operator",
-        "Alertmanager",
-        "Webhook notifications",
-        "Grafana",
-      ],
-      github: "https://github.com/Nikhilchalla",
-      demo: null,
-    },
-  ];
+  {
+    number: "01",
+    slug: "terraform-ha",
+    title: "Highly Available AWS App with Terraform",
+    intro:
+      "Built a highly available AWS application stack with load balancing, autoscaling and infrastructure defined entirely through Terraform.",
+    stack: ["Terraform", "AWS", "Flask", "EC2", "ALB"],
+    github: "https://github.com/Nikhilchalla/terraform-aws-ha-flask",
+    demo: null,
+  },
+  {
+    number: "02",
+    slug: "cloud-observability",
+    title: "Cloud-Native Observability Stack",
+    intro:
+      "Built a multi-cluster Kubernetes monitoring setup using Prometheus, Grafana and Alertmanager to surface infrastructure and application health.",
+    stack: ["Kubernetes", "Prometheus", "Grafana", "AWS", "Alertmanager"],
+    github: "https://github.com/Nikhilchalla",
+    demo: null,
+  },
+];
 
   const exploring = [
     {
@@ -158,27 +171,25 @@ export default function Portfolio() {
   ];
 
   const tools = [
-    { name: "AWS", icon: Cloud, color: "#FF9900" },
-    { name: "Google Cloud", icon: SiGooglecloud, color: "#4285F4" },
-    { name: "Docker", icon: SiDocker, color: "#2496ED" },
-    { name: "Kubernetes", icon: SiKubernetes, color: "#326CE5" },
-    { name: "Helm", icon: SiHelm, color: "#0F1689" },
-    { name: "Terraform", icon: SiTerraform, color: "#844FBA" },
-    { name: "Ansible", icon: SiAnsible, color: "#EE0000" },
-    { name: "GitHub Actions", icon: SiGithubactions, color: "#2088FF" },
-    { name: "Jenkins", icon: SiJenkins, color: "#D24939" },
-    { name: "GitLab CI", icon: SiGitlab, color: "#FC6D26" },
-    { name: "Bash", icon: SiGnubash, color: "#4EAA25" },
-    { name: "Python", icon: SiPython, color: "#3776AB" },
-    { name: "Grafana", icon: SiGrafana, color: "#F46800" },
-    { name: "Prometheus", icon: SiPrometheus, color: "#E6522C" },
-    { name: "ELK", icon: Database, color: "#FEC514" },
+    { name: "AWS", icon: Cloud },
+    { name: "Google Cloud", icon: SiGooglecloud },
+    { name: "Docker", icon: SiDocker },
+    { name: "Kubernetes", icon: SiKubernetes },
+    { name: "Helm", icon: SiHelm },
+    { name: "Terraform", icon: SiTerraform },
+    { name: "Ansible", icon: SiAnsible },
+    { name: "GitHub Actions", icon: SiGithubactions },
+    { name: "Jenkins", icon: SiJenkins },
+    { name: "GitLab CI", icon: SiGitlab },
+    { name: "Bash", icon: SiGnubash },
+    { name: "Python", icon: SiPython },
+    { name: "Grafana", icon: SiGrafana },
+    { name: "Prometheus", icon: SiPrometheus },
+    { name: "ELK", icon: Database },
   ];
 
   useEffect(() => {
-    fetch("/api/analytics", {
-      method: "POST",
-    })
+    fetch("/api/analytics", { method: "POST" })
       .then((res) => {
         if (!res.ok) {
           throw new Error(`Analytics request failed: ${res.status}`);
@@ -207,53 +218,45 @@ export default function Portfolio() {
     window.localStorage.setItem("portfolio-theme", theme);
   }, [theme]);
 
-  const formattedTime = time.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+const formattedTime = time.toLocaleTimeString("en-GB", {
+  timeZone: "Asia/Kolkata",
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+});
+
+  const socialButtonClass =
+    "w-10 h-10 rounded-md border border-[var(--border)] bg-[var(--surface)] flex items-center justify-center text-[var(--muted)] hover:text-[var(--accent)] hover:bg-[var(--surface-hover)] hover:border-[var(--border-hover)] transition-all duration-300";
 
   return (
-    <div className={`portfolio-shell theme-${theme} min-h-screen bg-[#0E0E0E] text-[#B8B6AF] font-mono`}>
+    <div
+      style={themeVars}
+      className="min-h-screen bg-[var(--page)] text-[var(--body)] font-mono transition-colors duration-300" >
 
-      {/* Status Bar */}
-
-      <div className="border-b border-[#2A2A2A] bg-[#0E0E0E] px-4 py-2">
-        <div className="max-w-6xl mx-auto flex items-center justify-between gap-3 flex-wrap text-[11px] sm:text-xs text-[#77756F]">
-
+      {/* STATUS BAR */}
+      <header className="border-b border-[var(--border)] bg-[var(--page)] px-4 py-2">
+        <div className="max-w-6xl mx-auto flex items-center justify-between gap-3 flex-wrap text-[11px] sm:text-xs text-[var(--muted)]">
           <div className="flex items-center gap-4 flex-wrap">
-
             <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#70977C]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--green)]" />
               online
             </span>
 
-            <span>
-              nikhil@cloud
-            </span>
-
+            <span>nikhil@cloud</span>
           </div>
 
           <div className="flex items-center gap-3">
-            <span>
-              {formattedTime}
-            </span>
+            <div className="flex items-center gap-1.5">
+              <span>{formattedTime}</span>
+              <span className="text-[var(--faint)]">IST</span>
+            </div>
 
             <button
               type="button"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="
-                w-8 h-8
-                rounded-md
-                border border-[#2A2A2A]
-                bg-[#151515]
-                flex
-                items-center
-                justify-center
-                text-[#A4A29B]
-                hover:text-[#C66A3A]
-                hover:bg-[#1A1A1A]
-                transition-colors
-              "
+              onClick={() =>
+                setTheme((current) => (current === "dark" ? "light" : "dark"))
+              }
+              className="w-8 h-8 rounded-md border border-[var(--border)] bg-[var(--surface)] flex items-center justify-center text-[var(--muted)] hover:text-[var(--accent)] hover:border-[var(--border-hover)] transition-all duration-300"
               aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
               title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
             >
@@ -264,117 +267,72 @@ export default function Portfolio() {
               )}
             </button>
           </div>
-
         </div>
-      </div>
+      </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-
-        {/* Banner */}
-
-        <div className="mb-10">
-          <div className="
-            relative
-            w-full
-            overflow-hidden
-            rounded-md
-            border border-[#2A2A2A]
-            bg-[#151515]
-          ">
-            <img
-              src="/banner/erin_git_banner.jpg"
-              alt="Portfolio banner"
-              className="
-                w-full
-                h-[160px]
-                sm:h-[200px]
-                md:h-[240px]
-                object-cover
-                object-[65%_center]
-                opacity-90
-              "
+        {/* ASCII BANNER */}
+        <div className="mb-8">
+          <div className="relative w-full h-[170px] sm:h-[210px] md:h-[240px] overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--surface-deep)] flex items-center justify-center">
+            <Ascii
+              piece="sparkline"
+              style={{
+                fontSize: "clamp(9px, 1.25vw, 16px)",
+                lineHeight: 1.1,
+                margin: 0,
+                whiteSpace: "pre",
+                color: colors.accent,
+              }}
+              className="opacity-90 select-none pointer-events-none"
             />
+
+            <div className="absolute bottom-3 left-4 text-[9px] sm:text-[10px] text-[var(--muted)]">
+              root@nikhil:~/metrics$ watch sparkline
+            </div>
           </div>
         </div>
 
         {/* WHOAMI */}
-
-        <section className="mb-12">
-
+        <section className="mb-8">
           <div className="mb-5">
-            <h6 className="text-[#F0EFEA] text-lg flex items-center gap-2">
-              <UserIcon className="w-4 h-4" />
+            <h2 className="text-[var(--heading)] text-lg flex items-center gap-2">
+              <UserIcon className="w-4 h-4 text-[var(--muted)]" />
               root@nikhil:~/
-            </h6>
+            </h2>
           </div>
 
           <div className="mb-4 flex items-center gap-4 sm:gap-5 flex-wrap">
-
             <img
               src={`https://github.com/${githubUsername}.png`}
               alt="Nikhil Challa"
-              className="
-                w-20 h-20
-                sm:w-24 sm:h-24
-                rounded-full
-                border border-[#2A2A2A]
-                object-cover
-              "
+              className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-[var(--border)] object-cover"
               loading="lazy"
             />
 
             <div>
-
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#F0EFEA] mb-1">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--heading)] mb-1">
                 Nikhil Challa
               </h1>
 
-              <p className="text-[#C66A3A] text-base sm:text-lg">
+              <p className="text-[var(--accent)] text-base sm:text-lg">
                 Cloud · DevOps · Infrastructure
               </p>
-
             </div>
-
           </div>
 
-          <p className="text-[#A4A29B] max-w-2xl leading-relaxed text-sm mb-8">
-            I build things around cloud, infrastructure and automation,
-            break them occasionally, figure out why, and document what I learn.
+          <p className="text-[var(--body)] max-w-2xl leading-relaxed text-sm mb-8">
+            I build things around cloud, infrastructure and automation, break
+            them occasionally, figure out why, and document what I learn.
           </p>
 
-          {/* Connect */}
-
           <div className="flex items-center gap-2">
-
             <a
               href={github}
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
               title="GitHub"
-              className="
-                w-10 h-10
-                rounded-md
-                border border-[#2A2A2A]
-                bg-[#151515]
-
-                flex
-                items-center
-                justify-center
-
-                text-[#A4A29B]
-
-                hover:text-[#F0EFEA]
-                hover:bg-[#1A1A1A]
-                hover:border-[#3A3A3A]
-
-                transition-all
-                duration-300
-
-                focus:outline-none
-                focus-visible:ring-2
-                focus-visible:ring-[#C66A3A]/50
-              "
+              className={socialButtonClass}
             >
               <GithubIcon className="w-4 h-4" />
             </a>
@@ -385,25 +343,7 @@ export default function Portfolio() {
               rel="noreferrer"
               aria-label="LinkedIn"
               title="LinkedIn"
-              className="
-                w-10 h-10
-                rounded-md
-                border border-[#2A2A2A]
-                bg-[#151515]
-
-                flex
-                items-center
-                justify-center
-
-                text-[#A4A29B]
-
-                hover:text-[#F0EFEA]
-                hover:bg-[#1A1A1A]
-                hover:border-[#3A3A3A]
-
-                transition-all
-                duration-300
-              "
+              className={socialButtonClass}
             >
               <LinkedinIcon className="w-4 h-4" />
             </a>
@@ -412,25 +352,7 @@ export default function Portfolio() {
               href={`mailto:${email}`}
               aria-label="Email"
               title="Email"
-              className="
-                w-10 h-10
-                rounded-md
-                border border-[#2A2A2A]
-                bg-[#151515]
-
-                flex
-                items-center
-                justify-center
-
-                text-[#A4A29B]
-
-                hover:text-[#C66A3A]
-                hover:bg-[#1A1A1A]
-                hover:border-[#C66A3A]/50
-
-                transition-all
-                duration-300
-              "
+              className={socialButtonClass}
             >
               <Mail className="w-4 h-4" />
             </a>
@@ -441,491 +363,266 @@ export default function Portfolio() {
               rel="noreferrer"
               aria-label="Resume"
               title="Resume"
-              className="
-                w-10 h-10
-                rounded-md
-                border border-[#2A2A2A]
-                bg-[#151515]
-
-                flex
-                items-center
-                justify-center
-
-                text-[#A4A29B]
-
-                hover:text-[#C66A3A]
-                hover:bg-[#1A1A1A]
-                hover:border-[#C66A3A]/50
-
-                transition-all
-                duration-300
-              "
+              className={socialButtonClass}
             >
               <FileText className="w-4 h-4" />
             </a>
-
           </div>
-
         </section>
 
-        {/* BUILDS */}
+      {/* BUILDS */}
+<section id="builds" className="mb-8">
+  <div className="mb-6">
+    <h2 className="flex items-center gap-2 text-lg text-[var(--heading)]">
+      <Container className="w-4 h-4 text-[var(--muted)]" />
+      root@nikhil:~/builds
+    </h2>
 
-        <section id="builds" className="mb-12">
+    <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--body)]">
+      A few things I've built while learning how infrastructure, applications
+      and distributed systems work in practice.
+    </p>
+  </div>
 
-          <div className="mb-6">
-            
-            <h6 className="text-[#F0EFEA] text-lg flex items-center gap-2">
-              <Container className="w-4 h-4" />
-              root@nikhil:~/builds
-            </h6>
+  <div>
+    {projects.map((project) => (
+      <article
+        key={project.slug}
+        className="
+          group
+          py-6
+          border-b
+          border-[var(--border)]
+        "
+      >
+        <div
+          className="
+            grid
+            gap-4
+            md:grid-cols-[48px_1fr]
+            md:gap-4
+          "
+        >
+          <span className="text-[10px] text-[var(--muted)] pt-1">
+            {project.number}
+          </span>
 
-            <p className="text-sm text-[#A4A29B] max-w-2xl mt-3 leading-relaxed">
-              A few things I've built while trying to understand how
-              infrastructure, applications and distributed systems actually work.
-            </p>
-
-          </div>
-
-          <div className="space-y-4">
-
-            {projects.map((project) => {
-              const isOpen = openProject === project.slug;
-
-              return (
-                <article
-                  key={project.slug}
+          <div>
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h3
                   className="
-                    border border-[#2A2A2A]
-                    rounded-md
-                    bg-[#151515]
-                    overflow-hidden
+                    text-base
+                    sm:text-lg
+                    font-medium
+                    text-[var(--heading)]
                     transition-colors
                     duration-300
-                    hover:bg-[#181818]
-                    hover:border-[#343434]
+                    group-hover:text-[var(--accent)]
                   "
                 >
+                  {project.title}
+                </h3>
 
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setOpenProject(isOpen ? null : project.slug)
-                    }
-                    className="
-                      w-full
-                      text-left
-                      p-4 sm:p-5 md:p-6
-                      flex
-                      items-start
-                      justify-between
-                      gap-3 sm:gap-5
-                    "
-                    aria-expanded={isOpen}
-                    aria-label={`${isOpen ? "Collapse" : "Expand"} ${project.title}`}
-                  >
-
-                    <div className="min-w-0">
-
-                      <span className="
-                        text-[10px]
-                        text-[#77756F]
-                        tracking-widest
-                        uppercase
-                      ">
-                        {project.number} / {project.slug}
-                      </span>
-
-                      <h3 className="
-                        text-base
-                        sm:text-lg
-                        md:text-xl
-                        font-semibold
-                        text-[#F0EFEA]
-                        mt-3
-                        mb-2
-                      ">
-                        {project.title}
-                      </h3>
-
-                      <p className="
-                        text-sm
-                        text-[#A4A29B]
-                        leading-relaxed
-                        max-w-2xl
-                      ">
-                        {project.intro}
-                      </p>
-
-                    </div>
-
-                    <span className="
-                      shrink-0
-                      w-9 h-9
-                      rounded-full
-                      border border-[#303030]
-                      bg-[#111111]
-                      flex
-                      items-center
-                      justify-center
-                      mt-1
-                    ">
-
-                      <ChevronDown
-                        className={`
-                          w-4 h-4
-                          text-[#77756F]
-                          transition-transform
-                          duration-300
-                          ${isOpen ? "rotate-180 text-[#C66A3A]" : "rotate-0"}
-                        `}
-                      />
-
+                <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+                  {project.stack.map((item) => (
+                    <span
+                      key={item}
+                      className="text-[11px] text-[var(--muted)]"
+                    >
+                      {item}
                     </span>
-
-                  </button>
-
-                  <div
-                    className={`
-                      grid
-                      transition-all
-                      duration-500
-                      ease-in-out
-                      ${
-                        isOpen
-                          ? "grid-rows-[1fr] opacity-100"
-                          : "grid-rows-[0fr] opacity-0"
-                      }
-                    `}
-                  >
-
-                    <div className="overflow-hidden">
-
-                      <div className="px-4 pb-5 sm:px-5 md:px-6 md:pb-6">
-
-                        <div className="border-t border-[#2A2A2A] pt-5">
-
-                          {/* Architecture */}
-
-                          <div className="
-                            mb-6
-                            border border-[#2A2A2A]
-                            rounded-md
-                            bg-[#101010]
-                            overflow-hidden
-                          ">
-
-                            <div className="
-                              px-3 py-2
-                              border-b border-[#2A2A2A]
-                              text-[10px]
-                              text-[#77756F]
-                            ">
-                              architecture.flow
-                            </div>
-
-                            <div className="
-                              p-3 sm:p-4
-                              flex
-                              items-center
-                              gap-2
-                              flex-wrap
-                              text-xs
-                              min-w-0
-                            ">
-
-                              {project.architecture.map((item, index) => (
-                                <div
-                                  key={item}
-                                  className="flex items-center gap-2 min-w-0"
-                                >
-
-                                  <span className="
-                                    border border-[#303030]
-                                    bg-[#181818]
-                                    px-2.5 py-1.5
-                                    rounded
-                                    text-[#B8B6AF]
-                                  ">
-                                    {item}
-                                  </span>
-
-                                  {index !==
-                                    project.architecture.length - 1 && (
-                                    <span className="text-[#C66A3A]">
-                                      →
-                                    </span>
-                                  )}
-
-                                </div>
-                              ))}
-
-                            </div>
-
-                          </div>
-
-                          <p className="
-                            text-[#A4A29B]
-                            text-sm
-                            leading-relaxed
-                            max-w-2xl
-                            mb-6
-                          ">
-                            {project.story}
-                          </p>
-
-                          <div className="mb-6">
-
-                            <p className="
-                              text-[10px]
-                              uppercase
-                              tracking-widest
-                              text-[#77756F]
-                              mb-3
-                            ">
-                              what I learned
-                            </p>
-
-                            <div className="flex flex-wrap gap-2">
-
-                              {project.learned.map((item) => (
-                                <span
-                                  key={item}
-                                  className="
-                                    text-xs
-                                    border border-[#303030]
-                                    rounded
-                                    px-2.5 py-1.5
-                                    text-[#B8B6AF]
-                                    bg-[#181818]
-                                  "
-                                >
-                                  {item}
-                                </span>
-                              ))}
-
-                            </div>
-
-                          </div>
-
-                          <div className="
-                            pt-4
-                            border-t border-[#2A2A2A]
-                            flex
-                            items-center
-                            justify-between
-                            gap-4
-                            flex-wrap
-                          ">
-
-                            <div className="flex flex-wrap gap-x-3 gap-y-1">
-
-                              {project.stack.map((item) => (
-                                <span
-                                  key={item}
-                                  className="text-[11px] text-[#77756F]"
-                                >
-                                  {item}
-                                </span>
-                              ))}
-
-                            </div>
-
-                            <div className="flex items-center gap-4">
-
-                              {project.demo && (
-                                <a
-                                  href={project.demo}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  className="
-                                    flex items-center gap-1.5
-                                    text-xs
-                                    text-[#A4A29B]
-                                    hover:text-[#F0EFEA]
-                                    transition-colors
-                                  "
-                                >
-                                  live demo
-                                  <ExternalLink className="w-3 h-3" />
-                                </a>
-                              )}
-
-                              <a
-                                href={project.github}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="
-                                  flex items-center gap-1.5
-                                  text-xs
-                                  text-[#C66A3A]
-                                  hover:text-[#E07A47]
-                                  transition-colors
-                                "
-                              >
-                                explore build
-                                <ExternalLink className="w-3 h-3" />
-                              </a>
-
-                            </div>
-
-                          </div>
-
-                        </div>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </article>
-              );
-            })}
-
-          </div>
-
-          <a
-            href={github}
-            target="_blank"
-            rel="noreferrer"
-            className="
-              inline-flex
-              items-center
-              gap-2
-              mt-5
-              text-xs
-              text-[#77756F]
-              hover:text-[#C66A3A]
-              transition-colors
-              flex-wrap
-            "
-          >
-            <span>
-              root@nikhil:~/builds$ ls --all
-            </span>
-
-            <span className="text-[#C66A3A]">
-              more experiments on GitHub
-            </span>
-
-            <ExternalLink className="w-3 h-3" />
-          </a>
-
-        </section>
-
-        {/* EXPLORING */}
-
-        <section id="exploring" className="mb-12">
-
-          <div className="mb-5">
-            <h6 className="text-[#F0EFEA] text-lg flex items-center gap-2">
-              <BookOpen className="w-4 h-4" />
-              root@nikhil:~/now
-            </h6>
-          </div>
-
-          <div className="
-            border border-[#2A2A2A]
-            rounded-md
-            bg-[#151515]
-            overflow-hidden
-          ">
-
-            {exploring.map((item, index) => (
-
-              <div
-                key={item.title}
-                className="
-                  grid
-                  md:grid-cols-[190px_1fr]
-                  gap-2 md:gap-6
-                  px-4 py-4
-                  border-b
-                  last:border-b-0
-                  border-[#2A2A2A]
-                "
-              >
-
-                <div className="flex items-start gap-3">
-
-                  <span className="text-[10px] text-[#77756F] pt-1">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-
-                  <span className="text-sm text-[#F0EFEA]">
-                    {item.title}
-                  </span>
-
+                  ))}
                 </div>
-
-                <p className="
-                  text-sm
-                  text-[#A4A29B]
-                  leading-relaxed
-                ">
-                  {item.description}
-                </p>
-
               </div>
 
-            ))}
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Open ${project.title} on GitHub`}
+                className="
+                  shrink-0
+                  text-[var(--muted)]
+                  hover:text-[var(--accent)]
+                  transition-colors
+                "
+              >
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            </div>
 
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--body)]">
+              {project.intro}
+            </p>
+
+            <div className="mt-4 flex items-center gap-4">
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noreferrer"
+                className="
+                  inline-flex
+                  items-center
+                  gap-1.5
+                  text-xs
+                  text-[var(--accent)]
+                  hover:text-[var(--accent-hover)]
+                  transition-colors
+                "
+              >
+                view project
+                <ExternalLink className="w-3 h-3" />
+              </a>
+
+              {project.demo && (
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="
+                    inline-flex
+                    items-center
+                    gap-1.5
+                    text-xs
+                    text-[var(--muted)]
+                    hover:text-[var(--accent)]
+                    transition-colors
+                  "
+                >
+                  live demo
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              )}
+            </div>
           </div>
+        </div>
+      </article>
+    ))}
+  </div>
 
-        </section>
+  <a
+    href={github}
+    target="_blank"
+    rel="noreferrer"
+    className="
+      mt-5
+      inline-flex
+      items-center
+      gap-2
+      text-xs
+      text-[var(--muted)]
+      hover:text-[var(--accent)]
+      transition-colors
+    "
+  >
+    more experiments on GitHub
+    <ExternalLink className="w-3 h-3" />
+  </a>
+</section>
 
-        {/* GITHUB */}
+    {/* EXPLORING */}
+<section id="exploring" className="mb-8">
+  <div className="mb-5">
+    <h2 className="flex items-center gap-2 text-lg text-[var(--heading)]">
+      <BookOpen className="w-4 h-4 text-[var(--muted)]" />
+      root@nikhil:~/now
+    </h2>
+  </div>
 
-        <section id="github" className="mb-12">
+  <div>
+    {exploring.map((item, index) => (
+      <div
+        key={item.title}
+        className="
+          group
+          grid
+          gap-3
+          py-5
+          border-b
+          border-[var(--border)]
+          md:grid-cols-[220px_1fr]
+          md:gap-6
+        "
+      >
+        <div className="flex items-center gap-3 min-w-0">
+          <span className="text-[10px] text-[var(--muted)]">
+            {String(index + 1).padStart(2, "0")}
+          </span>
 
+          <span
+            className="
+              text-sm
+              text-[var(--heading)]
+              transition-colors
+              duration-300
+              group-hover:text-[var(--accent)]
+            "
+          >
+            {item.title}
+          </span>
+        </div>
+
+        <p className="text-sm leading-relaxed text-[var(--body)]">
+          {item.description}
+        </p>
+      </div>
+    ))}
+  </div>
+
+  <div className="mt-4 text-[10px] text-[var(--muted)]">
+    {exploring.length} topics in progress.
+    <span className="ml-2 text-[var(--accent)] animate-pulse">▊</span>
+  </div>
+</section>
+
+      {/* GITHUB */}
+        <section id="github" className="mb-8">
           <div className="mb-4">
-            <h6 className="text-[#F0EFEA] text-lg flex items-center gap-2">
-              <GithubIcon className="w-4 h-4" />
+            <h2 className="text-[var(--heading)] text-lg flex items-center gap-2">
+              <GithubIcon className="w-4 h-4 text-[var(--muted)]" />
               root@nikhil:~/github
-            </h6>
+            </h2>
           </div>
 
-          <div className="
-            border border-[#2A2A2A]
-            rounded-md
-            p-5
-            bg-[#151515]
-            overflow-x-auto
-          ">
-
+          <div className="border border-[var(--border)] rounded-lg p-5 bg-[var(--surface)] overflow-hidden">
             <GitHubCalendar
               username={githubUsername}
               colorScheme={theme}
-              blockSize={14}
-              blockMargin={4}
-              fontSize={13}
+              blockSize={12}
+              blockMargin={3}
+              fontSize={12}
               hideColorLegend={false}
               hideMonthLabels={false}
               theme={{
-                dark: ["#202020", "#3B403C", "#4E6554", "#62806B", "#70977C"],
-                light: ["#EBE9E3", "#D3DDD4", "#B5C9B9", "#91AD97", "#70977C"],
+                dark: [
+                  "#16191E",
+                  "#203128",
+                  "#31543C",
+                  "#4E795A",
+                  "#7EE787",
+                ],
+                light: [
+                  "#EBEDF0",
+                  "#D5E8DA",
+                  "#AED3B7",
+                  "#76B889",
+                  "#3A8F58",
+                ],
               }}
             />
-
           </div>
-
         </section>
 
-        {/* PERSONAL */}
+      <Interests />
 
-        {/* <Gallery /> */}
-
-        <Interests />
-
-        {/* TOOLBOX */}
-
-        <section id="tools" className="mb-12">
-
-          <div className="mb-4">
-            <h6 className="text-[#F0EFEA] text-lg flex items-center gap-2">
-              <Server className="w-4 h-4" />
+        {/* TOOLS */}
+        <section id="tools" className="mb-8">
+          <div className="mb-5">
+            <h2 className="text-[var(--heading)] text-lg flex items-center gap-2">
+              <Server className="w-4 h-4 text-[var(--muted)]" />
               root@nikhil:~/stack
-            </h6>
+            </h2>
           </div>
 
           <div className="flex flex-wrap items-center gap-x-7 gap-y-6 py-2">
@@ -941,73 +638,37 @@ export default function Portfolio() {
                   className="group flex items-center justify-center"
                 >
                   <Icon
-                    className="w-8 h-8 transition-transform duration-300 group-hover:scale-110"
-                    style={{ color: tool.color }}
+                    className="w-8 h-8 text-[var(--muted)] transition-all duration-300 group-hover:text-[var(--accent)] group-hover:scale-110"
                     aria-hidden="true"
                   />
                 </span>
               );
             })}
           </div>
-
         </section>
 
-        {/* FOOTER */}
-
-        <footer className="
-          mt-14
-          pt-6
-          border-t border-[#2A2A2A]
-        ">
-
-          <div className="
-            flex
-            items-center
-            justify-between
-            gap-5
-            flex-wrap
-            text-xs
-            text-[#77756F]
-          ">
-
-            <span>
-              root@nikhil:~$ echo "Thanks for visiting."
-            </span>
+      {/* FOOTER */}
+        <footer className="mt-14 pt-6 border-t border-[var(--border)]">
+          <div className="flex items-center justify-between gap-5 flex-wrap text-xs text-[var(--muted)]">
+            <span>root@nikhil:~$ echo "Thanks for visiting."</span>
 
             <div className="flex items-center gap-4 flex-wrap">
+              <span>
+                {visitors !== null ? visitors.toLocaleString() : "—"} visitors
+              </span>
+
+              <span className="text-[var(--faint)]">/</span>
 
               <span>
-                {visitors !== null
-                  ? visitors.toLocaleString()
-                  : "—"}{" "}
-                visitors
+                {pageViews !== null ? pageViews.toLocaleString() : "—"} views
               </span>
 
-              <span className="text-[#3A3A3A]">
-                /
-              </span>
+              <span className="text-[var(--faint)]">/</span>
 
-              <span>
-                {pageViews !== null
-                  ? pageViews.toLocaleString()
-                  : "—"}{" "}
-                views
-              </span>
-
-              <span className="text-[#3A3A3A]">
-                /
-              </span>
-
-              <span>
-                © {new Date().getFullYear()} Nikhil Challa
-              </span>
-
+              <span>© {new Date().getFullYear()} Nikhil Challa</span>
             </div>
-
           </div>
-
         </footer>
-
       </main>
 
       <Analytics />
